@@ -1,0 +1,63 @@
+<ul class="sidebar-menu">
+    <li class="header">
+        NAVIGÁCIA</li>
+    <li [class.active]="isRouterLinkActive('MainDashboard')">
+        <a href="#" [routerLink]="['MainDashboard']">
+            <i class="fa fa-dashboard"></i>
+            <span>Prehľad</span>
+            <span class="label label-primary pull-right">4</span>
+        </a>
+    </li>
+    <!--
+                    <li class="treeview active">
+                        <a href="#">
+                            <i class="fa fa-dashboard"></i>
+                            <span>Kamery</span>
+                            <span class="label label-primary pull-right">3</span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="camera1.html"><i class="fa fa-circle-o"></i> Ulica</a></li>
+                            <li><a href="camera2.html"><i class="fa fa-circle-o"></i> Záhrada</a></li>
+                            <li><a href="camera3.html"><i class="fa fa-circle-o"></i> Vstupná hala</a></li>
+                        </ul>
+                    </li>
+                    -->
+    <li [class.active]="isRouterLinkActive('TempDashboard')">
+        <a href="#" [routerLink]="['TempDashboard']">
+            <i class="fa fa-dashboard"></i>
+            <span>Teplota</span>
+            <menu-info-dashlet [dashletId]="'indoorTemp'" [dashletIconColor]="'bg-green'"></menu-info-dashlet>
+            <menu-info-dashlet [dashletId]="'outdoorTemp'" [dashletIconColor]="'bg-red'"></menu-info-dashlet>
+        </a>
+    </li>
+    <li>
+        <a href="#">
+            <i class="fa fa-dashboard"></i>
+            <span>Vlhkosť</span>
+            <span class="label label-primary pull-right">17</span>
+        </a>
+    </li>
+    <li>
+        <a href="#">
+            <i class="fa fa-dashboard"></i>
+            <span>Slnečnosť</span>
+            <span class="label label-primary pull-right bg-red">53</span>
+        </a>
+    </li>
+    <li>
+        <a href="#">
+            <i class="fa fa-dashboard"></i>
+            <span>Radar</span>
+        </a>
+    </li>
+    <li class="header">KAMERY</li>
+    <li [class.active]="isRouterLinkActive('CameraDashboard')">
+        <a href="#" [routerLink]="['CameraDashboard']">
+            <i class="fa fa-dashboard"></i>
+            <span>Prehľad</span>
+        </a>
+    </li>
+    <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Ulica</span></a></li>
+    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Záhrada</span></a></li>
+    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Vstupná hala</span></a></li>
+</ul>

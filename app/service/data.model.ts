@@ -2,22 +2,39 @@
 export class DataModel {
 
 	public version: string;
-	public dashletInfo: DashletDataModel[];
-	public chartInfo: ChartSeriesDataModel[];
+	public systemStatus: SystemStatusEnum;
+	public sensors: SensorDataModel[];
 
 }
 
-export class DashletDataModel {
+export enum SystemStatusEnum {
+    READY,
+    ARMED,
+	UNKNOWN
+}
 
-	public dashletId: string;
-	public value: string;
+export class SensorDataModel {
+
+	public id: string;
+	public type: SensorTypeEnum;
 	public unit: string;
+	public name: string;
+	public latestValue: number;
+	public values: SensorValueDataModel[];
 
 }
 
-export class ChartSeriesDataModel {
+export enum SensorTypeEnum {
+    TEMP,
+    HUMIDITY,
+    PIR,
+    MAGNETIC,
+	UNKNOWN
+}
 
-	public latestUpdate: number;
-	public data: [number, number];
+export class SensorValueDataModel {
+
+	public x: number;
+	public y: number;
 
 }

@@ -1,6 +1,6 @@
 import {Injectable} from 'angular2/core';
 import {Http} from 'angular2/http';
-import {Observable} from 'rxjs/Rx';
+import {Observable, BehaviorSubject} from 'rxjs/Rx';
 import {Camera} from '../camera';
 import {DataModel} from './data.model';
 
@@ -8,6 +8,7 @@ import {DataModel} from './data.model';
 export class HemiService {
 
     private _cameras: Camera[] = [];
+    private _dataProvider: BehaviorSubject<DataModel> = new BehaviorSubject(null);
     private _infoProvider: Observable<DataModel>;
 
     constructor(private http: Http) {
@@ -16,10 +17,11 @@ export class HemiService {
         console.log("Setting up info update interval");
         this._infoProvider = Observable
             .timer(1, 5000)
-            .flatMap(() => {
+            .switchMap(() => {
                 console.log("Getting info update");
                 return this.getInfo();
             }).share();
+        this._infoProvider.subscribe(a => { });
     }
 
     getSnapshot(camId: number): Observable<string> {
@@ -30,14 +32,32 @@ export class HemiService {
     }
 
     getInfo() {
-        return this.http.get("http://localhost/hemi/interface/?getInfo")
+        return this.http.get("http://localhost/hemi/interface/?getInfo&t=" + this.getRequestTimestamp())
             .map(res => {
-                return res.json();
-            });
+                let response = res.json();
+                this._dataProvider.next(response);
+                return response;
+            }).catch(this.handleHttpError);
     }
 
-    getInfoObservable() {
-        return this._infoProvider;
+    private handleHttpError(error: any) {
+        let errMsg = error.message || 'Server error';
+        console.error(errMsg);
+        return null;
+    }
+
+    private getRequestTimestamp() {
+        return new Date().getTime();
+        // return Math.floor(new Date().getTime() / 1000);
+        // return this._dataProvider.getValue() ? Math.floor(new Date().getTime() / 1000) : 0;
+    }
+
+    getObservableData(callback: (value: DataModel) => void) {
+        return this._dataProvider.asObservable().subscribe(data => {
+            if (data != null) {
+                callback(data);
+            }
+        });
     }
 
     get cameras(): Camera[] {

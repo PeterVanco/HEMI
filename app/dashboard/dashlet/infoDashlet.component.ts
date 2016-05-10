@@ -1,38 +1,30 @@
 import {Component, Input, OnInit, OnDestroy, NgZone} from 'angular2/core';
-import {Subscription} from 'rxjs/Rx';
 import {HemiService} from '../../service/hemiService.service';
-import {DataModel, DashletDataModel} from '../../service/data.model';
+import {DataModel, SensorDataModel, SensorTypeEnum} from '../../service/data.model';
 import {AbstractDashlet} from './abstractDashlet.component';
 
 @Component({
     selector: 'info-dashlet',
     templateUrl: '../../tpl/infoDashlet.component.html'
 })
-export class InfoDashlet
-	extends AbstractDashlet<DashletDataModel>
-	implements OnInit, OnDestroy {
+export class InfoDashlet extends AbstractDashlet<SensorDataModel> implements OnInit, OnDestroy {
 
 	@Input() dashletId: string;
+	@Input() dashletType: SensorTypeEnum;
 	@Input() dashletIconClass: string;
 	@Input() dashletIconColor: string;
-	private dashletInfo: DashletDataModel;
+	private sensorData: SensorDataModel;
 
 	constructor(protected _hemiService: HemiService) {
 		super(_hemiService);
 	}
 
-	handleClick() {
-		console.log('Clicked');
-		this.dashletInfo = null;
-	}
-
 	extractData(model: DataModel) {
-		return model.dashletInfo.filter(di => di.dashletId == this.dashletId)[0];
+		return model.sensors.filter(di => di.id == this.dashletId && di.type.toString() == SensorTypeEnum[this.dashletType])[0];
 	}
 
-	handleData(data: DashletDataModel) {
-		//console.log(this.constructor.name + ": New dashlet data received");
-		this.dashletInfo = data;
+	handleData(data: SensorDataModel) {
+		this.sensorData = data;
 	}
 
 	ngOnInit() {

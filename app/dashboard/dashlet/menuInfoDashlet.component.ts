@@ -1,20 +1,21 @@
 import {Component, Input, OnInit, OnDestroy, NgZone} from 'angular2/core';
 import {Subscription} from 'rxjs/Rx';
 import {HemiService} from '../../service/hemiService.service';
-import {DataModel, DashletDataModel} from '../../service/data.model';
+import {DataModel, SensorDataModel, SensorTypeEnum} from '../../service/data.model';
 import {AbstractDashlet} from './abstractDashlet.component';
 
 @Component({
     selector: 'menu-info-dashlet',
-    templateUrl: '../../tpl/dashboard/dashlet/menuInfoDashlet.component.html'
+    template: '<span class="label label-primary pull-right {{dashletIconColor}}">{{sensorData?.latestValue}}</span>'
 })
 export class MenuInfoDashlet
-	extends AbstractDashlet<DashletDataModel>
+	extends AbstractDashlet<SensorDataModel>
 	implements OnInit, OnDestroy {
 
 	@Input() dashletId: string;
+	@Input() dashletType: SensorTypeEnum;
 	@Input() dashletIconColor: string;
-	private dashletInfo: DashletDataModel;
+	private sensorData: SensorDataModel;
 
 	constructor(protected _hemiService: HemiService) {
 		super(_hemiService);
@@ -22,15 +23,15 @@ export class MenuInfoDashlet
 
 	handleClick() {
 		console.log('Clicked');
-		this.dashletInfo = null;
+		this.sensorData = null;
 	}
 
 	extractData(model: DataModel) {
-		return model.dashletInfo.filter(di => di.dashletId == this.dashletId)[0];
+		return model.sensors.filter(di => di.id == this.dashletId && di.type.toString() == SensorTypeEnum[this.dashletType])[0];
 	}
 
-	handleData(data: DashletDataModel) {
-		this.dashletInfo = data;
+	handleData(data: SensorDataModel) {
+		this.sensorData = data;
 	}
 
 	ngOnInit() {

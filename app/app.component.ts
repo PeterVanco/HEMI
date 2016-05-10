@@ -7,6 +7,7 @@ import {MainDashboard} from './dashboard/mainDashboard.component';
 import {TempDashboard} from './dashboard/tempDashboard.component';
 import {CameraDashboard} from './dashboard/cameraDashboard.component';
 import {HemiService} from './service/hemiService.service';
+import {SystemStatusDashlet} from './dashboard/dashlet/systemStatusDashlet.component';
 
 @Component({
     selector: 'app',
@@ -18,7 +19,7 @@ import {HemiService} from './service/hemiService.service';
   //   <a [routerLink]="['CameraDashboard', { cameraRoute: camera.route }]" *ngFor="#camera of _hemiService.cameras">Camera Dashboard - {{camera.name}}</a>
   // </nav>
   // <router-outlet></router-outlet>`,
-  directives: [CurrentTime, AppMenu, ROUTER_DIRECTIVES]
+  directives: [CurrentTime, AppMenu, SystemStatusDashlet, ROUTER_DIRECTIVES]
 })
 @RouteConfig([
   { path: '/', name: 'MainDashboard', component: MainDashboard, useAsDefault: true },

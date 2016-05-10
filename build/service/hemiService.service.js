@@ -32,14 +32,16 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx', '../camera'], func
                     var _this = this;
                     this.http = http;
                     this._cameras = [];
+                    this._dataProvider = new Rx_1.BehaviorSubject(null);
                     this._cameras.push(new camera_1.Camera(1, "Zahrada", "snapUrl", "zahrada"), new camera_1.Camera(2, "Predzahrada", "snapUrl", "predzahrada"), new camera_1.Camera(3, "Vstupna hala", "snapUrl", "vstupna-hala"));
                     console.log("Setting up info update interval");
                     this._infoProvider = Rx_1.Observable
                         .timer(1, 5000)
-                        .flatMap(function () {
+                        .switchMap(function () {
                         console.log("Getting info update");
                         return _this.getInfo();
                     }).share();
+                    this._infoProvider.subscribe(function (a) { });
                 }
                 HemiService.prototype.getSnapshot = function (camId) {
                     return this.http.get("http://localhost/hemi/interface/?getSnapshot&camId=" + camId)
@@ -48,13 +50,30 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx', '../camera'], func
                     });
                 };
                 HemiService.prototype.getInfo = function () {
-                    return this.http.get("http://localhost/hemi/interface/?getInfo")
+                    var _this = this;
+                    return this.http.get("http://localhost/hemi/interface/?getInfo&t=" + this.getRequestTimestamp())
                         .map(function (res) {
-                        return res.json();
-                    });
+                        var response = res.json();
+                        _this._dataProvider.next(response);
+                        return response;
+                    }).catch(this.handleHttpError);
                 };
-                HemiService.prototype.getInfoObservable = function () {
-                    return this._infoProvider;
+                HemiService.prototype.handleHttpError = function (error) {
+                    var errMsg = error.message || 'Server error';
+                    console.error(errMsg);
+                    return null;
+                };
+                HemiService.prototype.getRequestTimestamp = function () {
+                    return new Date().getTime();
+                    // return Math.floor(new Date().getTime() / 1000);
+                    // return this._dataProvider.getValue() ? Math.floor(new Date().getTime() / 1000) : 0;
+                };
+                HemiService.prototype.getObservableData = function (callback) {
+                    return this._dataProvider.asObservable().subscribe(function (data) {
+                        if (data != null) {
+                            callback(data);
+                        }
+                    });
                 };
                 Object.defineProperty(HemiService.prototype, "cameras", {
                     get: function () {

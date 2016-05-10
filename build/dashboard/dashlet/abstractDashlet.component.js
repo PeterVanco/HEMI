@@ -1,21 +1,30 @@
-System.register([], function(exports_1, context_1) {
+System.register(['../../service/data.model'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
+    var data_model_1;
     var AbstractDashlet;
     return {
-        setters:[],
+        setters:[
+            function (data_model_1_1) {
+                data_model_1 = data_model_1_1;
+            }],
         execute: function() {
             AbstractDashlet = (function () {
                 function AbstractDashlet(_hemiService) {
                     this._hemiService = _hemiService;
+                    this.sensorType = data_model_1.SensorTypeEnum;
                 }
                 AbstractDashlet.prototype.ngOnInit = function () {
                     var _this = this;
                     console.log(this.getDashletName() + ": Registering observer");
-                    this.handler = this._hemiService.getInfoObservable().subscribe(function (model) {
-                        console.log(_this.getDashletName() + ": New dashlet data received");
-                        var data = _this.extractData(model);
-                        _this.handleData(data);
+                    this.handler = this._hemiService.getObservableData(function (model) {
+                        try {
+                            var data = _this.extractData(model);
+                            _this.handleData(data);
+                        }
+                        catch (ex) {
+                            console.log(_this.getDashletName() + ": Error while processing data: " + ex);
+                        }
                     });
                 };
                 AbstractDashlet.prototype.ngOnDestroy = function () {

@@ -5,14 +5,13 @@ import {InfoDashlet} from './dashlet/infoDashlet.component';
 import {CameraDashlet} from './dashlet/cameraDashlet.component';
 import {ChartDashlet} from './dashlet/highChartDashlet.component';
 import {ChartDashletRangeSelector} from './dashlet/chartDashletRangeSelector.component';
-import {Observable} from 'rxjs/Rx';
 
 @Component({
     selector: 'main-dashboard',
     templateUrl: '../tpl/dashboard/mainDashboard.component.html',
     directives: [ChartDashlet, InfoDashlet, CameraDashlet, ChartDashletRangeSelector]
 })
-export class MainDashboard extends AbstractDashboard implements OnInit, OnDestroy, AfterViewInit {
+export class MainDashboard extends AbstractDashboard implements OnInit, OnDestroy {
 
 	private name: string;
 	@ViewChild('temperatureChart')
@@ -30,14 +29,4 @@ export class MainDashboard extends AbstractDashboard implements OnInit, OnDestro
 		super.ngOnDestroy();
 	}
 	
-    ngAfterViewInit() {
-		this.http.get("app/dashboard/dashlet/chartSettings.json").catch(err => {
-			console.warn(err);
-			return Observable.throw(err);
-		}).subscribe(res => {
-			let evil = eval('(' + res.text() + ')');
-			this.temperatureChart.initialize(evil);
-		});
-    }
-
 }

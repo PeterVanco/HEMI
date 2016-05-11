@@ -1,12 +1,13 @@
 import {Component, ElementRef, Input, OnInit, OnDestroy, AfterViewInit} from 'angular2/core';
-// import {Highcharts} from 'highcharts/highcharts'
 import {HemiService} from '../../service/hemiService.service';
 import {DataModel, SensorDataModel, SensorTypeEnum} from '../../service/data.model';
 import {AbstractDashlet} from './abstractDashlet.component';
+import {Observable} from 'rxjs/Rx';
+import {Http} from 'angular2/http';
 
 @Component({
     selector: 'chart-dashlet',
-    template: `{{data}}<div id="chart-container">Loading chart ...</div>`
+    template: `<div id="chart-container">Loading chart ...</div>`
 })
 export class ChartDashlet extends AbstractDashlet<SensorDataModel[]> implements OnInit, OnDestroy, AfterViewInit {
 
@@ -16,9 +17,11 @@ export class ChartDashlet extends AbstractDashlet<SensorDataModel[]> implements 
     @Input() private dataset: any;
     @Input() private width: string;
     @Input() private height: string;
+    @Input() private chartSettingsUri: string
 
     constructor(public el: ElementRef,
-        protected _hemiService: HemiService) {
+        protected _hemiService: HemiService,
+        private http: Http) {
         super(_hemiService);
 
     }
@@ -68,6 +71,15 @@ export class ChartDashlet extends AbstractDashlet<SensorDataModel[]> implements 
                 width: this.width,
                 height: this.height
             });
+
+            this.http.get("app/dashboard/dashlet/chartSettings.settings.obj").catch(err => {
+                console.warn(err);
+                return Observable.throw(err);
+            }).subscribe(res => {
+                let evil = eval('(' + res.text() + ')');
+                this.initialize(evil);
+            });
+
             this.chosenInitialized = true;
         }
 

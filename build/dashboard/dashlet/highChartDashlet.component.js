@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../../service/hemiService.service', './abstractDashlet.component'], function(exports_1, context_1) {
+System.register(['angular2/core', '../../service/hemiService.service', './abstractDashlet.component', 'rxjs/Rx', 'angular2/http'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
@@ -15,7 +15,7 @@ System.register(['angular2/core', '../../service/hemiService.service', './abstra
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, hemiService_service_1, abstractDashlet_component_1;
+    var core_1, hemiService_service_1, abstractDashlet_component_1, Rx_1, http_1;
     var ChartDashlet;
     return {
         setters:[
@@ -27,14 +27,21 @@ System.register(['angular2/core', '../../service/hemiService.service', './abstra
             },
             function (abstractDashlet_component_1_1) {
                 abstractDashlet_component_1 = abstractDashlet_component_1_1;
+            },
+            function (Rx_1_1) {
+                Rx_1 = Rx_1_1;
+            },
+            function (http_1_1) {
+                http_1 = http_1_1;
             }],
         execute: function() {
             ChartDashlet = (function (_super) {
                 __extends(ChartDashlet, _super);
-                function ChartDashlet(el, _hemiService) {
+                function ChartDashlet(el, _hemiService, http) {
                     _super.call(this, _hemiService);
                     this.el = el;
                     this._hemiService = _hemiService;
+                    this.http = http;
                     this.chosenInitialized = false;
                 }
                 ChartDashlet.prototype.extractData = function (model) {
@@ -72,11 +79,19 @@ System.register(['angular2/core', '../../service/hemiService.service', './abstra
                     _super.prototype.ngOnDestroy.call(this);
                 };
                 ChartDashlet.prototype.ngAfterViewInit = function () {
+                    var _this = this;
                     if (!this.chosenInitialized) {
                         var plotArea = $(this.el.nativeElement).find('div').empty();
                         plotArea.css({
                             width: this.width,
                             height: this.height
+                        });
+                        this.http.get("app/dashboard/dashlet/chartSettings.settings.obj").catch(function (err) {
+                            console.warn(err);
+                            return Rx_1.Observable.throw(err);
+                        }).subscribe(function (res) {
+                            var evil = eval('(' + res.text() + ')');
+                            _this.initialize(evil);
                         });
                         this.chosenInitialized = true;
                     }
@@ -121,12 +136,16 @@ System.register(['angular2/core', '../../service/hemiService.service', './abstra
                     core_1.Input(), 
                     __metadata('design:type', String)
                 ], ChartDashlet.prototype, "height", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', String)
+                ], ChartDashlet.prototype, "chartSettingsUri", void 0);
                 ChartDashlet = __decorate([
                     core_1.Component({
                         selector: 'chart-dashlet',
-                        template: "{{data}}<div id=\"chart-container\">Loading chart ...</div>"
+                        template: "<div id=\"chart-container\">Loading chart ...</div>"
                     }), 
-                    __metadata('design:paramtypes', [core_1.ElementRef, hemiService_service_1.HemiService])
+                    __metadata('design:paramtypes', [core_1.ElementRef, hemiService_service_1.HemiService, http_1.Http])
                 ], ChartDashlet);
                 return ChartDashlet;
             }(abstractDashlet_component_1.AbstractDashlet));

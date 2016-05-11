@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/http', './abstractDashboard.component', './dashlet/infoDashlet.component', './dashlet/cameraDashlet.component', './dashlet/highChartDashlet.component', './dashlet/chartDashletRangeSelector.component', 'rxjs/Rx'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/http', './abstractDashboard.component', './dashlet/infoDashlet.component', './dashlet/cameraDashlet.component', './dashlet/highChartDashlet.component', './dashlet/chartDashletRangeSelector.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
@@ -15,7 +15,7 @@ System.register(['angular2/core', 'angular2/http', './abstractDashboard.componen
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, http_1, abstractDashboard_component_1, infoDashlet_component_1, cameraDashlet_component_1, highChartDashlet_component_1, chartDashletRangeSelector_component_1, Rx_1;
+    var core_1, http_1, abstractDashboard_component_1, infoDashlet_component_1, cameraDashlet_component_1, highChartDashlet_component_1, chartDashletRangeSelector_component_1;
     var MainDashboard;
     return {
         setters:[
@@ -39,9 +39,6 @@ System.register(['angular2/core', 'angular2/http', './abstractDashboard.componen
             },
             function (chartDashletRangeSelector_component_1_1) {
                 chartDashletRangeSelector_component_1 = chartDashletRangeSelector_component_1_1;
-            },
-            function (Rx_1_1) {
-                Rx_1 = Rx_1_1;
             }],
         execute: function() {
             MainDashboard = (function (_super) {
@@ -55,16 +52,6 @@ System.register(['angular2/core', 'angular2/http', './abstractDashboard.componen
                 };
                 MainDashboard.prototype.ngOnDestroy = function () {
                     _super.prototype.ngOnDestroy.call(this);
-                };
-                MainDashboard.prototype.ngAfterViewInit = function () {
-                    var _this = this;
-                    this.http.get("app/dashboard/dashlet/chartSettings.json").catch(function (err) {
-                        console.warn(err);
-                        return Rx_1.Observable.throw(err);
-                    }).subscribe(function (res) {
-                        var evil = eval('(' + res.text() + ')');
-                        _this.temperatureChart.initialize(evil);
-                    });
                 };
                 __decorate([
                     core_1.ViewChild('temperatureChart'), 

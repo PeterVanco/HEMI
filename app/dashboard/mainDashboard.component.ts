@@ -23,10 +23,8 @@ export class MainDashboard extends AbstractDashboard implements OnInit, OnDestro
 
     ngAfterViewInit() {
 		$(window).resize(e => {
-			$('#weather-radar').height($('#carousel-example-generic').height());
-			// ($('#equalize-height') as any).equalHeights();
+			$('#weather-radar').height($('#carousel-cameras').height());
 		});
-		// ($('#equalize-height') as any).equalHeights();
 	}
 
 	ngOnInit() {

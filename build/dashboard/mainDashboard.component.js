@@ -49,10 +49,8 @@ System.register(['angular2/core', 'angular2/http', './abstractDashboard.componen
                 }
                 MainDashboard.prototype.ngAfterViewInit = function () {
                     $(window).resize(function (e) {
-                        $('#weather-radar').height($('#carousel-example-generic').height());
-                        // ($('#equalize-height') as any).equalHeights();
+                        $('#weather-radar').height($('#carousel-cameras').height());
                     });
-                    // ($('#equalize-height') as any).equalHeights();
                 };
                 MainDashboard.prototype.ngOnInit = function () {
                     _super.prototype.ngOnInit.call(this);

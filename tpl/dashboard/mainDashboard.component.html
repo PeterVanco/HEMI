@@ -15,17 +15,17 @@
 </div>
 <div class="row" id="equalize-height">
     <div class="col-md-6">
-        <div class="box box-solid">
+        <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">Kamery</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" >
+                <div id="carousel-cameras" class="carousel slide" data-interval="2000" data-ride="carousel">
                     <ol class="carousel-indicators">
-                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                        <li data-target="#carousel-example-generic" data-slide-to="1" class=""></li>
-                        <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
+                        <li data-target="#carousel-cameras" data-slide-to="0" class="active"></li>
+                        <li data-target="#carousel-cameras" data-slide-to="1" class=""></li>
+                        <li data-target="#carousel-cameras" data-slide-to="2" class=""></li>
                     </ol>
                     <div class="carousel-inner">
                         <div class="item active">
@@ -47,10 +47,10 @@
                             </div>
                         </div>
                     </div>
-                    <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                    <a class="left carousel-control" href="#carousel-cameras" data-slide="prev">
                         <span class="fa fa-angle-left"></span>
                     </a>
-                    <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                    <a class="right carousel-control" href="#carousel-cameras" data-slide="next">
                         <span class="fa fa-angle-right"></span>
                     </a>
                 </div>
@@ -61,13 +61,41 @@
     </div>
     <!-- /.col -->
     <div class="col-md-6">
-        <div class="box box-solid">
+        <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">Radar</h3>
+                <div class="box-tools pull-right">
+                    <chart-dashlet-range-selector [chartDashlet]="temperatureChart"></chart-dashlet-range-selector>
+                </div>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <iframe id="weather-radar" src="http://hemi-radar-studienka.petervanco.sk" style="border: none; display:block; width: 100%"></iframe>
+                <div id="carousel-weather" class="carousel slide" data-interval="1000" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carousel-weather" data-slide-to="0" class="active"></li>
+                        <li data-target="#carousel-weather" data-slide-to="1" class=""></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <iframe id="weather-radar" src="http://hemi-radar-studienka.petervanco.sk" style="border: none; display:block; width: 100%"></iframe>
+                            <div class="carousel-caption">
+                                Radar
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div>Predpoved pocasia</div>
+                            <div class="carousel-caption">
+                                Predpoved pocasia
+                            </div>
+                        </div>
+                    </div>
+                    <a class="left carousel-control" href="#carousel-weather" data-slide="prev">
+                        <span class="fa fa-angle-left"></span>
+                    </a>
+                    <a class="right carousel-control" href="#carousel-weather" data-slide="next">
+                        <span class="fa fa-angle-right"></span>
+                    </a>
+                </div>
             </div>
             <!-- /.box-body -->
         </div>

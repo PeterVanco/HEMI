@@ -38,7 +38,7 @@
     <script src="node_modules/highcharts/highcharts.js"></script>
     <!-- 2. Configure SystemJS -->
     <script>
-    System.config({
+        System.config({
         packages: {
             build: {
                 format: 'register',
@@ -55,6 +55,8 @@
     <app>Loading...</app>
     <!-- jQuery 2.1.4 -->
     <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="plugins/jQuery/jQuery.browser.min.js"></script>
+    <script src="plugins/jQuery/jQuery.equalHeights.js"></script>
     <!-- Bootstrap 3.3.5 -->
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <!-- FastClick -->
@@ -82,7 +84,7 @@
     <script src="plugins/flot/jquery.flot.time.min.js"></script>
     <!-- Page script -->
     <script>
-    $(function() {
+        $(function() {
         /*
          * Flot Interactive Chart
          * -----------------------

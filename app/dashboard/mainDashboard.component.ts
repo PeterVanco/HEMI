@@ -11,14 +11,22 @@ import {ChartDashletRangeSelector} from './dashlet/chartDashletRangeSelector.com
     templateUrl: '../tpl/dashboard/mainDashboard.component.html',
     directives: [ChartDashlet, InfoDashlet, CameraDashlet, ChartDashletRangeSelector]
 })
-export class MainDashboard extends AbstractDashboard implements OnInit, OnDestroy {
+export class MainDashboard extends AbstractDashboard implements OnInit, OnDestroy, AfterViewInit {
 
 	private name: string;
 	@ViewChild('temperatureChart')
-	temperatureChart: ChartDashlet;	
-	
+	temperatureChart: ChartDashlet;
+
 	constructor(private http: Http) {
 		super();
+	}
+
+    ngAfterViewInit() {
+		$(window).resize(e => {
+			$('#weather-radar').height($('#carousel-example-generic').height());
+			// ($('#equalize-height') as any).equalHeights();
+		});
+		// ($('#equalize-height') as any).equalHeights();
 	}
 
 	ngOnInit() {
@@ -28,5 +36,5 @@ export class MainDashboard extends AbstractDashboard implements OnInit, OnDestro
 	ngOnDestroy() {
 		super.ngOnDestroy();
 	}
-	
+
 }

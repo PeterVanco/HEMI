@@ -21,18 +21,23 @@ export class HemiService {
                 console.log("Getting info update");
                 return this.getInfo();
             }).share();
-        this._infoProvider.subscribe(a => { });
+        this._infoProvider.subscribe(
+            data => {
+            },
+            error => {
+                console.error(error);
+            });
     }
 
     getSnapshot(camId: number): Observable<string> {
-        return this.http.get("http://localhost/hemi/interface/?getSnapshot&camId=" + camId)
+        return this.http.get("http://www.petervanco.sk/hemi/interface/?getSnapshot&camId=" + camId)
             .map(res => {
                 return res.text();
             });
     }
 
     getInfo() {
-        return this.http.get("http://localhost/hemi/interface/?getInfo&t=" + this.getRequestTimestamp())
+        return this.http.get("http://www.petervanco.sk/hemi/interface/?getInfo&t=" + this.getRequestTimestamp())
             .map(res => {
                 let response = res.json();
                 this._dataProvider.next(response);
@@ -41,9 +46,10 @@ export class HemiService {
     }
 
     private handleHttpError(error: any) {
-        let errMsg = error.message || 'Server error';
+        console.error("Server error");
+        let errMsg = error.message;
         console.error(errMsg);
-        return null;
+        return Observable.throw(errMsg);
     }
 
     private getRequestTimestamp() {
@@ -57,7 +63,10 @@ export class HemiService {
             if (data != null) {
                 callback(data);
             }
-        });
+        },
+            error => {
+                console.error(error);
+            });
     }
 
     get cameras(): Camera[] {

@@ -41,17 +41,20 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx', '../camera'], func
                         console.log("Getting info update");
                         return _this.getInfo();
                     }).share();
-                    this._infoProvider.subscribe(function (a) { });
+                    this._infoProvider.subscribe(function (data) {
+                    }, function (error) {
+                        console.error(error);
+                    });
                 }
                 HemiService.prototype.getSnapshot = function (camId) {
-                    return this.http.get("http://localhost/hemi/interface/?getSnapshot&camId=" + camId)
+                    return this.http.get("http://www.petervanco.sk/hemi/interface/?getSnapshot&camId=" + camId)
                         .map(function (res) {
                         return res.text();
                     });
                 };
                 HemiService.prototype.getInfo = function () {
                     var _this = this;
-                    return this.http.get("http://localhost/hemi/interface/?getInfo&t=" + this.getRequestTimestamp())
+                    return this.http.get("http://www.petervanco.sk/hemi/interface/?getInfo&t=" + this.getRequestTimestamp())
                         .map(function (res) {
                         var response = res.json();
                         _this._dataProvider.next(response);
@@ -59,9 +62,10 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx', '../camera'], func
                     }).catch(this.handleHttpError);
                 };
                 HemiService.prototype.handleHttpError = function (error) {
-                    var errMsg = error.message || 'Server error';
+                    console.error("Server error");
+                    var errMsg = error.message;
                     console.error(errMsg);
-                    return null;
+                    return Rx_1.Observable.throw(errMsg);
                 };
                 HemiService.prototype.getRequestTimestamp = function () {
                     return new Date().getTime();
@@ -73,6 +77,8 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx', '../camera'], func
                         if (data != null) {
                             callback(data);
                         }
+                    }, function (error) {
+                        console.error(error);
                     });
                 };
                 Object.defineProperty(HemiService.prototype, "cameras", {

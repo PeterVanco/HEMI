@@ -70,7 +70,7 @@ System.register(['angular2/core', '../../service/hemiService.service', '../../se
                 InfoDashlet = __decorate([
                     core_1.Component({
                         selector: 'info-dashlet',
-                        templateUrl: '../../tpl/infoDashlet.component.html'
+                        templateUrl: '../../tpl/dashboard/dashlet/infoDashlet.component.html'
                     }), 
                     __metadata('design:paramtypes', [hemiService_service_1.HemiService])
                 ], InfoDashlet);

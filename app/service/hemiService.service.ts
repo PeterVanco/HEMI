@@ -25,19 +25,19 @@ export class HemiService {
             data => {
             },
             error => {
-                console.error(error);
+                console.log(error);
             });
     }
 
     getSnapshot(camId: number): Observable<string> {
-        return this.http.get("http://www.petervanco.sk/hemi/interface/?getSnapshot&camId=" + camId)
+        return this.http.get("http://localhost/hemi/interface/?getSnapshot&camId=" + camId)
             .map(res => {
                 return res.text();
             });
     }
 
     getInfo() {
-        return this.http.get("http://www.petervanco.sk/hemi/interface/?getInfo&t=" + this.getRequestTimestamp())
+        return this.http.get("http://localhost/hemi/interface/?getInfo&t=" + this.getRequestTimestamp())
             .map(res => {
                 let response = res.json();
                 this._dataProvider.next(response);
@@ -45,10 +45,10 @@ export class HemiService {
             }).catch(this.handleHttpError);
     }
 
-    private handleHttpError(error: any) {
-        console.error("Server error");
+    public handleHttpError(error: any) {
+        console.log("Server error");
         let errMsg = error.message;
-        console.error(errMsg);
+        console.log(errMsg);
         return Observable.throw(errMsg);
     }
 

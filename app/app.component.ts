@@ -26,8 +26,6 @@ import {SystemStatusDashlet} from './dashboard/dashlet/systemStatusDashlet.compo
   { path: '/teplota', name: 'TempDashboard', component: TempDashboard },
   { path: '/kamery', name: 'CameraDashboard', component: CameraDashboard },
   { path: '/kamera/:cameraRoute', name: 'SingleCameraDashboard', component: CameraDashboard }
-  // {path:'/heroes',        name: 'Heroes',       component: HeroListComponent},
-  // {path:'/hero/:id',      name: 'HeroDetail',   component: HeroDetailComponent}
 ])
 export class AppComponent {
 

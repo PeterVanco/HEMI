@@ -38,3 +38,7 @@ export class SensorValueDataModel {
 	public y: number;
 
 }
+
+export class WeatherDataModel {
+	
+}

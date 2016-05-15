@@ -5,7 +5,7 @@ import {AbstractDashlet} from './abstractDashlet.component';
 
 @Component({
     selector: 'info-dashlet',
-    templateUrl: '../../tpl/infoDashlet.component.html'
+    templateUrl: '../../tpl/dashboard/dashlet/infoDashlet.component.html'
 })
 export class InfoDashlet extends AbstractDashlet<SensorDataModel> implements OnInit, OnDestroy {
 

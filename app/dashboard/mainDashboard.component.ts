@@ -3,13 +3,15 @@ import {Http} from 'angular2/http';
 import {AbstractDashboard} from './abstractDashboard.component';
 import {InfoDashlet} from './dashlet/infoDashlet.component';
 import {CameraDashlet} from './dashlet/cameraDashlet.component';
-import {ChartDashlet} from './dashlet/highChartDashlet.component';
-import {ChartDashletRangeSelector} from './dashlet/chartDashletRangeSelector.component';
+import {ChartDashlet} from './dashlet/chartDashlet.component';
+import {WeatherForecastDashlet} from './dashlet/WeatherForecastDashlet.component';
+import {ChartDashletRangeSelector} from './dashlet/control/chartDashletRangeSelector.component';
+import {CarouselItemSelector} from './dashlet/control/carouselItemSelector.component';
 
 @Component({
     selector: 'main-dashboard',
     templateUrl: '../tpl/dashboard/mainDashboard.component.html',
-    directives: [ChartDashlet, InfoDashlet, CameraDashlet, ChartDashletRangeSelector]
+    directives: [ChartDashlet, InfoDashlet, CameraDashlet, ChartDashletRangeSelector, CarouselItemSelector, WeatherForecastDashlet]
 })
 export class MainDashboard extends AbstractDashboard implements OnInit, OnDestroy, AfterViewInit {
 
@@ -22,9 +24,9 @@ export class MainDashboard extends AbstractDashboard implements OnInit, OnDestro
 	}
 
     ngAfterViewInit() {
-		$(window).resize(e => {
-			$('#weather-radar').height($('#carousel-cameras').height());
-		});
+		super.ngAfterViewInit();
+		$(window).resize(e => this.equalizeDashletHeights());
+		setInterval(this.equalizeDashletHeights, 1000);
 	}
 
 	ngOnInit() {
@@ -33,6 +35,12 @@ export class MainDashboard extends AbstractDashboard implements OnInit, OnDestro
 
 	ngOnDestroy() {
 		super.ngOnDestroy();
+	}
+
+	private equalizeDashletHeights() {
+		if ($('#carousel-cameras').height() != $('#carousel-weather').height()) {
+			$('#carousel-weather').height($('#carousel-cameras').height());
+		}
 	}
 
 }

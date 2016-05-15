@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/http', './abstractDashboard.component', './dashlet/infoDashlet.component', './dashlet/cameraDashlet.component', './dashlet/highChartDashlet.component', './dashlet/chartDashletRangeSelector.component'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/http', './abstractDashboard.component', './dashlet/infoDashlet.component', './dashlet/cameraDashlet.component', './dashlet/chartDashlet.component', './dashlet/WeatherForecastDashlet.component', './dashlet/control/chartDashletRangeSelector.component', './dashlet/control/carouselItemSelector.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
@@ -15,7 +15,7 @@ System.register(['angular2/core', 'angular2/http', './abstractDashboard.componen
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, http_1, abstractDashboard_component_1, infoDashlet_component_1, cameraDashlet_component_1, highChartDashlet_component_1, chartDashletRangeSelector_component_1;
+    var core_1, http_1, abstractDashboard_component_1, infoDashlet_component_1, cameraDashlet_component_1, chartDashlet_component_1, WeatherForecastDashlet_component_1, chartDashletRangeSelector_component_1, carouselItemSelector_component_1;
     var MainDashboard;
     return {
         setters:[
@@ -34,11 +34,17 @@ System.register(['angular2/core', 'angular2/http', './abstractDashboard.componen
             function (cameraDashlet_component_1_1) {
                 cameraDashlet_component_1 = cameraDashlet_component_1_1;
             },
-            function (highChartDashlet_component_1_1) {
-                highChartDashlet_component_1 = highChartDashlet_component_1_1;
+            function (chartDashlet_component_1_1) {
+                chartDashlet_component_1 = chartDashlet_component_1_1;
+            },
+            function (WeatherForecastDashlet_component_1_1) {
+                WeatherForecastDashlet_component_1 = WeatherForecastDashlet_component_1_1;
             },
             function (chartDashletRangeSelector_component_1_1) {
                 chartDashletRangeSelector_component_1 = chartDashletRangeSelector_component_1_1;
+            },
+            function (carouselItemSelector_component_1_1) {
+                carouselItemSelector_component_1 = carouselItemSelector_component_1_1;
             }],
         execute: function() {
             MainDashboard = (function (_super) {
@@ -48,9 +54,10 @@ System.register(['angular2/core', 'angular2/http', './abstractDashboard.componen
                     this.http = http;
                 }
                 MainDashboard.prototype.ngAfterViewInit = function () {
-                    $(window).resize(function (e) {
-                        $('#weather-radar').height($('#carousel-cameras').height());
-                    });
+                    var _this = this;
+                    _super.prototype.ngAfterViewInit.call(this);
+                    $(window).resize(function (e) { return _this.equalizeDashletHeights(); });
+                    setInterval(this.equalizeDashletHeights, 1000);
                 };
                 MainDashboard.prototype.ngOnInit = function () {
                     _super.prototype.ngOnInit.call(this);
@@ -58,15 +65,20 @@ System.register(['angular2/core', 'angular2/http', './abstractDashboard.componen
                 MainDashboard.prototype.ngOnDestroy = function () {
                     _super.prototype.ngOnDestroy.call(this);
                 };
+                MainDashboard.prototype.equalizeDashletHeights = function () {
+                    if ($('#carousel-cameras').height() != $('#carousel-weather').height()) {
+                        $('#carousel-weather').height($('#carousel-cameras').height());
+                    }
+                };
                 __decorate([
                     core_1.ViewChild('temperatureChart'), 
-                    __metadata('design:type', highChartDashlet_component_1.ChartDashlet)
+                    __metadata('design:type', chartDashlet_component_1.ChartDashlet)
                 ], MainDashboard.prototype, "temperatureChart", void 0);
                 MainDashboard = __decorate([
                     core_1.Component({
                         selector: 'main-dashboard',
                         templateUrl: '../tpl/dashboard/mainDashboard.component.html',
-                        directives: [highChartDashlet_component_1.ChartDashlet, infoDashlet_component_1.InfoDashlet, cameraDashlet_component_1.CameraDashlet, chartDashletRangeSelector_component_1.ChartDashletRangeSelector]
+                        directives: [chartDashlet_component_1.ChartDashlet, infoDashlet_component_1.InfoDashlet, cameraDashlet_component_1.CameraDashlet, chartDashletRangeSelector_component_1.ChartDashletRangeSelector, carouselItemSelector_component_1.CarouselItemSelector, WeatherForecastDashlet_component_1.WeatherForecastDashlet]
                     }), 
                     __metadata('design:paramtypes', [http_1.Http])
                 ], MainDashboard);

@@ -13,6 +13,10 @@ System.register(['../service/data.model'], function(exports_1, context_1) {
                 function AbstractDashboard() {
                     this.sensorType = data_model_1.SensorTypeEnum;
                 }
+                AbstractDashboard.prototype.ngAfterViewInit = function () {
+                    window.pauseCarousels = function () { return $('.carousel').carousel('pause'); };
+                    $('.carousel').carousel();
+                };
                 AbstractDashboard.prototype.ngOnInit = function () {
                 };
                 AbstractDashboard.prototype.ngOnDestroy = function () {

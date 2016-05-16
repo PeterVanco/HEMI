@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/http', './abstractDashboard.component', './dashlet/infoDashlet.component', './dashlet/cameraDashlet.component', './dashlet/chartDashlet.component', './dashlet/WeatherForecastDashlet.component', './dashlet/control/chartDashletRangeSelector.component', './dashlet/control/carouselItemSelector.component'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/http', './abstractDashboard.component', './dashlet/infoDashlet.component', './dashlet/cameraDashlet.component', './dashlet/chartDashlet.component', './dashlet/iframeDashlet.component', './dashlet/WeatherForecastDashlet.component', './dashlet/control/chartDashletRangeSelector.component', './dashlet/control/carouselItemSelector.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
@@ -15,7 +15,7 @@ System.register(['angular2/core', 'angular2/http', './abstractDashboard.componen
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, http_1, abstractDashboard_component_1, infoDashlet_component_1, cameraDashlet_component_1, chartDashlet_component_1, WeatherForecastDashlet_component_1, chartDashletRangeSelector_component_1, carouselItemSelector_component_1;
+    var core_1, http_1, abstractDashboard_component_1, infoDashlet_component_1, cameraDashlet_component_1, chartDashlet_component_1, iframeDashlet_component_1, WeatherForecastDashlet_component_1, chartDashletRangeSelector_component_1, carouselItemSelector_component_1;
     var MainDashboard;
     return {
         setters:[
@@ -36,6 +36,9 @@ System.register(['angular2/core', 'angular2/http', './abstractDashboard.componen
             },
             function (chartDashlet_component_1_1) {
                 chartDashlet_component_1 = chartDashlet_component_1_1;
+            },
+            function (iframeDashlet_component_1_1) {
+                iframeDashlet_component_1 = iframeDashlet_component_1_1;
             },
             function (WeatherForecastDashlet_component_1_1) {
                 WeatherForecastDashlet_component_1 = WeatherForecastDashlet_component_1_1;
@@ -78,7 +81,7 @@ System.register(['angular2/core', 'angular2/http', './abstractDashboard.componen
                     core_1.Component({
                         selector: 'main-dashboard',
                         templateUrl: '../tpl/dashboard/mainDashboard.component.html',
-                        directives: [chartDashlet_component_1.ChartDashlet, infoDashlet_component_1.InfoDashlet, cameraDashlet_component_1.CameraDashlet, chartDashletRangeSelector_component_1.ChartDashletRangeSelector, carouselItemSelector_component_1.CarouselItemSelector, WeatherForecastDashlet_component_1.WeatherForecastDashlet]
+                        directives: [chartDashlet_component_1.ChartDashlet, infoDashlet_component_1.InfoDashlet, cameraDashlet_component_1.CameraDashlet, chartDashletRangeSelector_component_1.ChartDashletRangeSelector, carouselItemSelector_component_1.CarouselItemSelector, WeatherForecastDashlet_component_1.WeatherForecastDashlet, iframeDashlet_component_1.IFrameDashlet]
                     }), 
                     __metadata('design:paramtypes', [http_1.Http])
                 ], MainDashboard);

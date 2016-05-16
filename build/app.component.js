@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './appMenu.component', './dashboard/dashlet/currentTime.component', './dashboard/mainDashboard.component', './dashboard/tempDashboard.component', './dashboard/cameraDashboard.component', './dashboard/singleCameraDashboard.component', './service/hemiService.service', './dashboard/dashlet/systemStatusDashlet.component'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', './appMenu.component', './dashboard/dashlet/currentTime.component', './dashboard/mainDashboard.component', './dashboard/tempDashboard.component', './dashboard/cameraDashboard.component', './dashboard/radarDashboard.component', './dashboard/singleCameraDashboard.component', './service/hemiService.service', './dashboard/dashlet/systemStatusDashlet.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', './appMenu.component', './d
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, appMenu_component_1, currentTime_component_1, mainDashboard_component_1, tempDashboard_component_1, cameraDashboard_component_1, singleCameraDashboard_component_1, hemiService_service_1, systemStatusDashlet_component_1;
+    var core_1, router_1, appMenu_component_1, currentTime_component_1, mainDashboard_component_1, tempDashboard_component_1, cameraDashboard_component_1, radarDashboard_component_1, singleCameraDashboard_component_1, hemiService_service_1, systemStatusDashlet_component_1;
     var AppComponent;
     return {
         setters:[
@@ -34,6 +34,9 @@ System.register(['angular2/core', 'angular2/router', './appMenu.component', './d
             },
             function (cameraDashboard_component_1_1) {
                 cameraDashboard_component_1 = cameraDashboard_component_1_1;
+            },
+            function (radarDashboard_component_1_1) {
+                radarDashboard_component_1 = radarDashboard_component_1_1;
             },
             function (singleCameraDashboard_component_1_1) {
                 singleCameraDashboard_component_1 = singleCameraDashboard_component_1_1;
@@ -59,6 +62,7 @@ System.register(['angular2/core', 'angular2/router', './appMenu.component', './d
                     router_1.RouteConfig([
                         { path: '/', name: 'MainDashboard', component: mainDashboard_component_1.MainDashboard, useAsDefault: true },
                         { path: '/teplota', name: 'TempDashboard', component: tempDashboard_component_1.TempDashboard },
+                        { path: '/radar', name: 'RadarDashboard', component: radarDashboard_component_1.RadarDashboard },
                         { path: '/kamery', name: 'CameraDashboard', component: cameraDashboard_component_1.CameraDashboard },
                         { path: '/kamera/:cameraRoute', name: 'SingleCameraDashboard', component: singleCameraDashboard_component_1.SingleCameraDashboard }
                     ]), 

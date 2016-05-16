@@ -6,6 +6,7 @@ import {CurrentTime} from './dashboard/dashlet/currentTime.component';
 import {MainDashboard} from './dashboard/mainDashboard.component';
 import {TempDashboard} from './dashboard/tempDashboard.component';
 import {CameraDashboard} from './dashboard/cameraDashboard.component';
+import {RadarDashboard} from './dashboard/radarDashboard.component';
 import {SingleCameraDashboard} from './dashboard/singleCameraDashboard.component';
 import {HemiService} from './service/hemiService.service';
 import {SystemStatusDashlet} from './dashboard/dashlet/systemStatusDashlet.component';
@@ -18,6 +19,7 @@ import {SystemStatusDashlet} from './dashboard/dashlet/systemStatusDashlet.compo
 @RouteConfig([
     { path: '/', name: 'MainDashboard', component: MainDashboard, useAsDefault: true },
     { path: '/teplota', name: 'TempDashboard', component: TempDashboard },
+    { path: '/radar', name: 'RadarDashboard', component: RadarDashboard },
     { path: '/kamery', name: 'CameraDashboard', component: CameraDashboard },
     { path: '/kamera/:cameraRoute', name: 'SingleCameraDashboard', component: SingleCameraDashboard }
 ])

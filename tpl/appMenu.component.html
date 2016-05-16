@@ -43,8 +43,8 @@
             <span class="label label-primary pull-right bg-red">53</span>
         </a>
     </li>
-    <li>
-        <a href="#">
+    <li [class.active]="isRouterLinkActive(['RadarDashboard'])">
+        <a href="#" [routerLink]="['RadarDashboard']">
             <i class="fa fa-dashboard"></i>
             <span>Radar</span>
         </a>
@@ -56,10 +56,5 @@
             <span>Prehľad</span>
         </a>
     </li>
-    <li *ngFor="#camera of cameras"  [class.active]="isRouterLinkActive(['SingleCameraDashboard', { cameraRoute: camera.route }])" [routerLink]="['SingleCameraDashboard', { cameraRoute: camera.route }]"><a href="#"><i class="fa fa-circle-o text-{{camera.color}}"></i> <span>{{camera.name}}</span></a></li>
-    <!--
-        <li [class.active]="isRouterLinkActive(['SingleCameraDashboard', { cameraRoute: 'zahrada' }])" [routerLink]="['SingleCameraDashboard', { cameraRoute: 'zahrada' }]"><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Záhrada</span></a></li>
-        <li [class.active]="isRouterLinkActive('CameraDashboard')" [routerLink]="['SingleCameraDashboard', { cameraRoute: camera?.route }]"><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Ulica</span></a></li>
-        <li [class.active]="isRouterLinkActive('CameraDashboard')" [routerLink]="['SingleCameraDashboard', { cameraRoute: camera?.route }]"><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Vstupná hala</span></a></li>
-    -->
+    <li *ngFor="#camera of cameras" [class.active]="isRouterLinkActive(['SingleCameraDashboard', { cameraRoute: camera.route }])" [routerLink]="['SingleCameraDashboard', { cameraRoute: camera.route }]"><a href="#"><i class="fa fa-circle-o text-{{camera.color}}"></i> <span>{{camera.name}}</span></a></li>
 </ul>

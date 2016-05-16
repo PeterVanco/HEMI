@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/http', 'rxjs/Rx', '../camera'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx', '../camera'], func
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, http_1, Rx_1, camera_1;
+    var core_1, http_1, Rx_1;
     var HemiService;
     return {
         setters:[
@@ -22,18 +22,13 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx', '../camera'], func
             },
             function (Rx_1_1) {
                 Rx_1 = Rx_1_1;
-            },
-            function (camera_1_1) {
-                camera_1 = camera_1_1;
             }],
         execute: function() {
             HemiService = (function () {
                 function HemiService(http) {
                     var _this = this;
                     this.http = http;
-                    this._cameras = [];
                     this._dataProvider = new Rx_1.BehaviorSubject(null);
-                    this._cameras.push(new camera_1.Camera(1, "Zahrada", "snapUrl", "zahrada"), new camera_1.Camera(2, "Predzahrada", "snapUrl", "predzahrada"), new camera_1.Camera(3, "Vstupna hala", "snapUrl", "vstupna-hala"));
                     console.log("Setting up info update interval");
                     this._infoProvider = Rx_1.Observable
                         .timer(1, 5000)
@@ -41,21 +36,18 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx', '../camera'], func
                         console.log("Getting info update");
                         return _this.getInfo();
                     }).share();
-                    this._infoProvider.subscribe(function (data) {
-                    }, function (error) {
+                    var dataHandler = function (data) { };
+                    var errorHandler = function (error) {
                         console.log(error);
-                    });
+                        _this._infoProvider.subscribe(dataHandler, errorHandler);
+                    };
+                    this._infoProvider.subscribe(dataHandler, errorHandler);
                 }
-                HemiService.prototype.getSnapshot = function (camId) {
-                    return this.http.get("http://localhost/hemi/interface/?getSnapshot&camId=" + camId)
-                        .map(function (res) {
-                        return res.text();
-                    });
-                };
                 HemiService.prototype.getInfo = function () {
                     var _this = this;
                     return this.http.get("http://localhost/hemi/interface/?getInfo&t=" + this.getRequestTimestamp())
                         .map(function (res) {
+                        // console.log(res.text());
                         var response = res.json();
                         _this._dataProvider.next(response);
                         return response;
@@ -80,16 +72,6 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx', '../camera'], func
                     }, function (error) {
                         console.error(error);
                     });
-                };
-                Object.defineProperty(HemiService.prototype, "cameras", {
-                    get: function () {
-                        return this._cameras;
-                    },
-                    enumerable: true,
-                    configurable: true
-                });
-                HemiService.prototype.getCameraByRoute = function (route) {
-                    return this._cameras.filter(function (camera) { return camera.route == route; })[0];
                 };
                 HemiService = __decorate([
                     core_1.Injectable(), 

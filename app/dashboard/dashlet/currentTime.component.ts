@@ -2,7 +2,7 @@ import {Component} from 'angular2/core';
 
 @Component({
     selector: 'current-time',
-    template: `{{ time | date:'HH'}}:{{ time | date:'mm'}}`
+    template: `{{ time | date:'HHmm'}}`
 })
 export class CurrentTime {  
     

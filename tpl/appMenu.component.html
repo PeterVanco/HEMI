@@ -1,7 +1,7 @@
 <ul class="sidebar-menu">
     <li class="header">
         NAVIGÁCIA</li>
-    <li [class.active]="isRouterLinkActive('MainDashboard')">
+    <li [class.active]="isRouterLinkActive(['MainDashboard'])">
         <a href="#" [routerLink]="['MainDashboard']">
             <i class="fa fa-dashboard"></i>
             <span>Prehľad</span>
@@ -21,7 +21,7 @@
                         </ul>
                     </li>
                     -->
-    <li [class.active]="isRouterLinkActive('TempDashboard')">
+    <li [class.active]="isRouterLinkActive(['TempDashboard'])">
         <a href="#" [routerLink]="['TempDashboard']">
             <i class="fa fa-dashboard"></i>
             <span>Teplota</span>
@@ -50,13 +50,16 @@
         </a>
     </li>
     <li class="header">KAMERY</li>
-    <li [class.active]="isRouterLinkActive('CameraDashboard')">
+    <li [class.active]="isRouterLinkActive(['CameraDashboard'])">
         <a href="#" [routerLink]="['CameraDashboard']">
             <i class="fa fa-dashboard"></i>
             <span>Prehľad</span>
         </a>
     </li>
-    <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Ulica</span></a></li>
-    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Záhrada</span></a></li>
-    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Vstupná hala</span></a></li>
+    <li *ngFor="#camera of cameras"  [class.active]="isRouterLinkActive(['SingleCameraDashboard', { cameraRoute: camera.route }])" [routerLink]="['SingleCameraDashboard', { cameraRoute: camera.route }]"><a href="#"><i class="fa fa-circle-o text-{{camera.color}}"></i> <span>{{camera.name}}</span></a></li>
+    <!--
+        <li [class.active]="isRouterLinkActive(['SingleCameraDashboard', { cameraRoute: 'zahrada' }])" [routerLink]="['SingleCameraDashboard', { cameraRoute: 'zahrada' }]"><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Záhrada</span></a></li>
+        <li [class.active]="isRouterLinkActive('CameraDashboard')" [routerLink]="['SingleCameraDashboard', { cameraRoute: camera?.route }]"><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Ulica</span></a></li>
+        <li [class.active]="isRouterLinkActive('CameraDashboard')" [routerLink]="['SingleCameraDashboard', { cameraRoute: camera?.route }]"><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Vstupná hala</span></a></li>
+    -->
 </ul>

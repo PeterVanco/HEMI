@@ -8,9 +8,7 @@ export abstract class AbstractDashlet<T> implements OnInit, OnDestroy {
 	private handler: Subscription;
 	private sensorType = SensorTypeEnum;
 
-	constructor(protected _hemiService: HemiService) {
-
-	}
+	constructor(protected _hemiService: HemiService) { }
 
 	abstract handleData(data: T);
 

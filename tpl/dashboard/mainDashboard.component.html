@@ -66,7 +66,7 @@
     <div class="col-md-6">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Radar</h3>
+                <h3 class="box-title">Počasie</h3>
                 <div class="box-tools pull-right">
                     <carousel-item-selector [carouselId]="'carousel-weather'" [items]="['Radar', 'Predpoved pocasia']"></carousel-item-selector>
                 </div>
@@ -77,9 +77,6 @@
                     <div class="carousel-inner" style="height: 100%; width: 100%">
                         <div class="item active" style="height: 100%; width: 100%">
                             <iframe id="weather-radar" src="http://hemi-radar-studienka.petervanco.sk" style="border: none; display:block; height: 100%; width: 100%"></iframe>
-                            <div class="carousel-caption">
-                                Radar
-                            </div>
                         </div>
                         <div class="item" style="height: 100%; width: 100%">
                             <weather-forecast-dashlet [city]="'Bratislava'"></weather-forecast-dashlet>

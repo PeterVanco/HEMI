@@ -1,45 +1,43 @@
 import {Component, Input, OnInit, OnDestroy} from 'angular2/core';
 import {Observable, Subscription} from 'rxjs/Rx';
 import {HemiService} from '../../service/hemiService.service';
-import {Camera} from '../../camera';
+import {DataModel, Camera} from '../../service/data.model';
+import {AbstractDashlet} from './abstractDashlet.component';
 
 @Component({
     selector: 'camera-dashlet',
-    template: `This is camera {{camId}} image <img src="{{latestSnapshotUrl}}" />`
+    templateUrl: '../../tpl/dashboard/dashlet/cameraDashlet.component.html',
+	styles: [`
+	img {
+		width: 100%;	
+	}
+	`]
 })
-export class CameraDashlet implements OnInit, OnDestroy {
+export class CameraDashlet extends AbstractDashlet<Camera> implements OnInit, OnDestroy {
 
-	@Input() camera: Camera;
-	private latestSnapshotUrl: string;
-	private handler: Subscription;
+	@Input() cameraRoute: string;
+	private camera: Camera;
 
 	constructor(
-		private _hemiService: HemiService) {
+		protected _hemiService: HemiService) {
+		super(_hemiService);
 	}
 
-	getSnapshot() {
-		return this._hemiService.getSnapshot(this.camera.id).toPromise().then(resp => {
-			this.latestSnapshotUrl = resp;
-		});
+	extractData(model: DataModel) {
+		return model.cameras.filter(cam => cam.route == this.cameraRoute)[0];
+	}
+
+	handleData(data: Camera) {
+		this.camera = data;
+		console.log(this.camera.latestSnapshot.uri);
 	}
 
 	ngOnInit() {
-		console.log("Setting up camera " + this.camera.id + " interval");
-		this.getSnapshot();
-		let snapshotUrlProvider: Observable<string> = Observable
-			.interval(5000)
-			.share()
-			.flatMap(() => {
-				console.log("Getting snapshot for camera " + this.camera.id);
-				return this._hemiService.getSnapshot(this.camera.id);
-			})
-		this.handler = snapshotUrlProvider.subscribe(resp => {
-			this.latestSnapshotUrl = resp;
-		});
+		super.ngOnInit();
 	}
 
 	ngOnDestroy() {
-		this.handler.unsubscribe();
+		super.ngOnDestroy();
 	}
 
 }

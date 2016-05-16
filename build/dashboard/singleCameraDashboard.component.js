@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './dashlet/cameraDashlet.component', '../service/hemiService.service'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', './dashlet/cameraDashlet.component', './dashlet/cameraTimelineDashlet.component', '../service/hemiService.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,8 +10,8 @@ System.register(['angular2/core', 'angular2/router', './dashlet/cameraDashlet.co
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, cameraDashlet_component_1, hemiService_service_1;
-    var CameraDashboard;
+    var core_1, router_1, cameraDashlet_component_1, cameraTimelineDashlet_component_1, hemiService_service_1;
+    var SingleCameraDashboard;
     return {
         setters:[
             function (core_1_1) {
@@ -23,30 +23,33 @@ System.register(['angular2/core', 'angular2/router', './dashlet/cameraDashlet.co
             function (cameraDashlet_component_1_1) {
                 cameraDashlet_component_1 = cameraDashlet_component_1_1;
             },
+            function (cameraTimelineDashlet_component_1_1) {
+                cameraTimelineDashlet_component_1 = cameraTimelineDashlet_component_1_1;
+            },
             function (hemiService_service_1_1) {
                 hemiService_service_1 = hemiService_service_1_1;
             }],
         execute: function() {
-            CameraDashboard = (function () {
-                function CameraDashboard(_router, _routeParams, _hemiService) {
+            SingleCameraDashboard = (function () {
+                function SingleCameraDashboard(_router, _routeParams, _hemiService) {
                     this._router = _router;
                     this._routeParams = _routeParams;
                     this._hemiService = _hemiService;
                 }
-                CameraDashboard.prototype.ngOnInit = function () {
-                    this.camera = this._hemiService.getCameraByRoute(this._routeParams.get('cameraRoute'));
+                SingleCameraDashboard.prototype.ngOnInit = function () {
+                    this.cameraRoute = this._routeParams.get('cameraRoute');
                 };
-                CameraDashboard = __decorate([
+                SingleCameraDashboard = __decorate([
                     core_1.Component({
                         selector: 'camera-dashboard',
-                        template: "This is a camera {{ camera?.name }} dashboard\n\t\t\t\t<camera-dashlet *ngIf=\"camera\" [camera]=\"camera\"></camera-dashlet>\n    ",
-                        directives: [cameraDashlet_component_1.CameraDashlet],
+                        templateUrl: '../tpl/dashboard/singleCameraDashboard.component.html',
+                        directives: [cameraDashlet_component_1.CameraDashlet, cameraTimelineDashlet_component_1.CameraTimelineDashlet],
                     }), 
                     __metadata('design:paramtypes', [router_1.Router, router_1.RouteParams, hemiService_service_1.HemiService])
-                ], CameraDashboard);
-                return CameraDashboard;
+                ], SingleCameraDashboard);
+                return SingleCameraDashboard;
             }());
-            exports_1("CameraDashboard", CameraDashboard);
+            exports_1("SingleCameraDashboard", SingleCameraDashboard);
         }
     }
 });

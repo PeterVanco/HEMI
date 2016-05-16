@@ -1,19 +1,18 @@
 import {Component, OnInit} from 'angular2/core';
 import {RouteParams, Router} from 'angular2/router';
 import {CameraDashlet} from './dashlet/cameraDashlet.component';
-import {Camera} from '../camera';
+import {CameraTimelineDashlet} from './dashlet/cameraTimelineDashlet.component';
+import {Camera} from '../service/data.model';
 import {HemiService} from '../service/hemiService.service';
 
 @Component({
     selector: 'camera-dashboard',
-    template: `This is a camera {{ camera?.name }} dashboard
-				<camera-dashlet *ngIf="camera" [camera]="camera"></camera-dashlet>
-    `,
-    directives: [CameraDashlet],
+    templateUrl: '../tpl/dashboard/singleCameraDashboard.component.html',
+    directives: [CameraDashlet, CameraTimelineDashlet],
 })
-export class CameraDashboard implements OnInit {
+export class SingleCameraDashboard implements OnInit {
 
-	private camera: Camera;
+	private cameraRoute: string;
 
 	constructor(
 		private _router: Router,
@@ -21,7 +20,7 @@ export class CameraDashboard implements OnInit {
 		private _hemiService: HemiService) { }
 
 	ngOnInit() {
-		this.camera = this._hemiService.getCameraByRoute(this._routeParams.get('cameraRoute'));
+		this.cameraRoute = this._routeParams.get('cameraRoute');
 	}
 
 }

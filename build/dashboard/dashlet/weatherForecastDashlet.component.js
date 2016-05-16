@@ -39,7 +39,7 @@ System.register(['angular2/core', '../../service/hemiService.service', '../../ut
                 };
                 WeatherForecastDashlet.prototype.resolveForecastDay = function (timestamp) {
                     var date = new Date(timestamp * 1000);
-                    var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                    var days = ['Pondelok', 'Utorok', 'Streda', 'Štvrtok', 'Piatok', 'Sobota', 'Nedeľa'];
                     return days[date.getDay()];
                 };
                 Object.defineProperty(WeatherForecastDashlet.prototype, "format", {

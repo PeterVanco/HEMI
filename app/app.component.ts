@@ -6,31 +6,25 @@ import {CurrentTime} from './dashboard/dashlet/currentTime.component';
 import {MainDashboard} from './dashboard/mainDashboard.component';
 import {TempDashboard} from './dashboard/tempDashboard.component';
 import {CameraDashboard} from './dashboard/cameraDashboard.component';
+import {SingleCameraDashboard} from './dashboard/singleCameraDashboard.component';
 import {HemiService} from './service/hemiService.service';
 import {SystemStatusDashlet} from './dashboard/dashlet/systemStatusDashlet.component';
 
 @Component({
     selector: 'app',
     templateUrl: './tpl/app.component.html',
-  //   template: `<h1>HEMI</h1>
-  // <nav>
-  // {{_router}}
-  //   <a [routerLink]="['MainDashboard']">Main Dashboard</a>
-  //   <a [routerLink]="['CameraDashboard', { cameraRoute: camera.route }]" *ngFor="#camera of _hemiService.cameras">Camera Dashboard - {{camera.name}}</a>
-  // </nav>
-  // <router-outlet></router-outlet>`,
-  directives: [CurrentTime, AppMenu, SystemStatusDashlet, ROUTER_DIRECTIVES]
+    directives: [CurrentTime, AppMenu, SystemStatusDashlet, ROUTER_DIRECTIVES]
 })
 @RouteConfig([
-  { path: '/', name: 'MainDashboard', component: MainDashboard, useAsDefault: true },
-  { path: '/teplota', name: 'TempDashboard', component: TempDashboard },
-  { path: '/kamery', name: 'CameraDashboard', component: CameraDashboard },
-  { path: '/kamera/:cameraRoute', name: 'SingleCameraDashboard', component: CameraDashboard }
+    { path: '/', name: 'MainDashboard', component: MainDashboard, useAsDefault: true },
+    { path: '/teplota', name: 'TempDashboard', component: TempDashboard },
+    { path: '/kamery', name: 'CameraDashboard', component: CameraDashboard },
+    { path: '/kamera/:cameraRoute', name: 'SingleCameraDashboard', component: SingleCameraDashboard }
 ])
 export class AppComponent {
 
-  constructor(private _router: Router,
-    private _hemiService: HemiService) {
-  }
+    constructor(private _router: Router,
+        private _hemiService: HemiService) {
+    }
 
 }

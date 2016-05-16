@@ -1,7 +1,7 @@
 System.register([], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var DataModel, SystemStatusEnum, SensorDataModel, SensorTypeEnum, SensorValueDataModel, WeatherDataModel;
+    var DataModel, SystemStatusEnum, SensorDataModel, SensorTypeEnum, SensorValueDataModel, WeatherDataModel, Camera, CameraSnapshot;
     return {
         setters:[],
         execute: function() {
@@ -43,6 +43,18 @@ System.register([], function(exports_1, context_1) {
                 return WeatherDataModel;
             }());
             exports_1("WeatherDataModel", WeatherDataModel);
+            Camera = (function () {
+                function Camera() {
+                }
+                return Camera;
+            }());
+            exports_1("Camera", Camera);
+            CameraSnapshot = (function () {
+                function CameraSnapshot() {
+                }
+                return CameraSnapshot;
+            }());
+            exports_1("CameraSnapshot", CameraSnapshot);
         }
     }
 });

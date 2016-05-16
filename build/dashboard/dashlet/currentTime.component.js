@@ -27,7 +27,7 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                 CurrentTime = __decorate([
                     core_1.Component({
                         selector: 'current-time',
-                        template: "{{ time | date:'HH'}}:{{ time | date:'mm'}}"
+                        template: "{{ time | date:'HHmm'}}"
                     }), 
                     __metadata('design:paramtypes', [])
                 ], CurrentTime);

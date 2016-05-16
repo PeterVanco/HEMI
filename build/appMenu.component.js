@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './dashboard/dashlet/menuInfoDashlet.component', './service/data.model'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', './dashboard/dashlet/menuInfoDashlet.component', './service/data.model', './service/hemiService.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', './dashboard/dashlet/menuIn
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, menuInfoDashlet_component_1, data_model_1;
+    var core_1, router_1, menuInfoDashlet_component_1, data_model_1, hemiService_service_1;
     var AppMenu;
     return {
         setters:[
@@ -25,14 +25,30 @@ System.register(['angular2/core', 'angular2/router', './dashboard/dashlet/menuIn
             },
             function (data_model_1_1) {
                 data_model_1 = data_model_1_1;
+            },
+            function (hemiService_service_1_1) {
+                hemiService_service_1 = hemiService_service_1_1;
             }],
         execute: function() {
             AppMenu = (function () {
-                function AppMenu() {
+                function AppMenu(_hemiService) {
+                    this._hemiService = _hemiService;
                     this.sensorType = data_model_1.SensorTypeEnum;
                 }
-                AppMenu.prototype.isRouterLinkActive = function (link) {
-                    return this._router.isRouteActive(this._router.generate([link]));
+                AppMenu.prototype.ngOnInit = function () {
+                    var _this = this;
+                    this.handler = this._hemiService.getObservableData(function (model) {
+                        try {
+                            _this.cameras = model.cameras;
+                            _this.handler.unsubscribe();
+                        }
+                        catch (ex) {
+                            console.error("Could not extract cameras for menu");
+                        }
+                    });
+                };
+                AppMenu.prototype.isRouterLinkActive = function (params) {
+                    return this._router.isRouteActive(this._router.generate(params));
                 };
                 __decorate([
                     core_1.Input(), 
@@ -44,7 +60,7 @@ System.register(['angular2/core', 'angular2/router', './dashboard/dashlet/menuIn
                         templateUrl: './tpl/appMenu.component.html',
                         directives: [menuInfoDashlet_component_1.MenuInfoDashlet, router_1.ROUTER_DIRECTIVES]
                     }), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [hemiService_service_1.HemiService])
                 ], AppMenu);
                 return AppMenu;
             }());

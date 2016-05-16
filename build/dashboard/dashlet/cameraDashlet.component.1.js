@@ -56,7 +56,7 @@ System.register(['angular2/core', '../../service/hemiService.service', './abstra
                 CameraDashlet = __decorate([
                     core_1.Component({
                         selector: 'camera-dashlet',
-                        templateUrl: '../../tpl/dashboard/dashlet/cameraDashlet.component.html',
+                        template: "<img src=\"{{camera?.latestSnapshot.uri}}\" />",
                         styles: ["\n\timg {\n\t\twidth: 100%;\t\n\t}\n\t"]
                     }), 
                     __metadata('design:paramtypes', [hemiService_service_1.HemiService])
@@ -67,4 +67,4 @@ System.register(['angular2/core', '../../service/hemiService.service', './abstra
         }
     }
 });
-//# sourceMappingURL=cameraDashlet.component.js.map
+//# sourceMappingURL=cameraDashlet.component.1.js.map

@@ -31,7 +31,7 @@ export class WeatherForecastDashlet implements OnInit, OnDestroy, AfterViewInit 
 
     private resolveForecastDay(timestamp: number) {
         let date = new Date(timestamp * 1000);
-        let days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+        let days = ['Pondelok','Utorok','Streda','Štvrtok','Piatok','Sobota','Nedeľa'];
         return days[date.getDay()];
     }
     

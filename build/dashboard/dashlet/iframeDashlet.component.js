@@ -24,11 +24,15 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', String)
+                ], IFrameDashlet.prototype, "iframeId", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', String)
                 ], IFrameDashlet.prototype, "iframeSrc", void 0);
                 IFrameDashlet = __decorate([
                     core_1.Component({
                         selector: 'iframe-dashlet',
-                        template: '<iframe src="{{iframeSrc}}"></iframe>',
+                        template: '<iframe id="{{iframeId}}" src="{{iframeSrc}}"></iframe>',
                         styles: ["\n\tiframe {\n\t\tborder: none;\n\t\tdisplay: block;\n\t\theight: 100%;\n\t\twidth: 100%;\n\t}\n\t"]
                     }), 
                     __metadata('design:paramtypes', [])

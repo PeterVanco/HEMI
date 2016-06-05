@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component, AfterViewInit} from 'angular2/core';
 import {Router, RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 import {AppMenu} from './appMenu.component';
 import {CurrentTime} from './dashboard/dashlet/currentTime.component';
@@ -22,10 +22,14 @@ import {SystemStatusDashlet} from './dashboard/dashlet/systemStatusDashlet.compo
     { path: '/kamery', name: 'CameraDashboard', component: CameraDashboard },
     { path: '/kamera/:cameraRoute', name: 'SingleCameraDashboard', component: SingleCameraDashboard }
 ])
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
 
     constructor(private _router: Router,
         private _hemiService: HemiService) {
+    }
+
+    ngAfterViewInit() {
+        $(window).trigger('resize');
     }
 
 }

@@ -2,48 +2,44 @@
  * Component: Info Box
  * -------------------
  */
-
 .info-box {
-    display: block;
-    min-height: @info-box-size;
-    background: #fff;
-    width: 100%;
-    box-shadow: @box-boxshadow;
-    .border-radius(2px);
-    margin-bottom: 15px;
-    small {
-        font-size: 14px;
+  display: block;
+  min-height: @info-box-size;
+  background: #fff;
+  width: 100%;
+  box-shadow: @box-boxshadow;
+  .border-radius(2px);
+  margin-bottom: 15px;
+  small {
+    font-size: 14px;
+  }
+  .progress {
+    background: rgba(0, 0, 0, .2);
+    margin: 5px -10px 5px -10px;
+    height: 2px;
+    &,
+    & .progress-bar {
+      .border-radius(0);
     }
-    .progress {
-        background: rgba(0, 0, 0, .2);
-        margin: 5px -10px 5px -10px;
-        height: 2px;
-        &,
-        & .progress-bar {
-            .border-radius(0);
-        }
-        .progress-bar {
-            background: #fff;
-        }
+    .progress-bar {
+      background: #fff;
     }
+  }
 }
 
 .info-box-icon {
-    .border-radius(2px;
-    0;
-    2px;
-    0);
-    display: block;
-    float: left;
+  .border-radius(2px; 0; 2px; 0);
+  display: block;
+  float: left;
     height: @info-box-size;
     width: @info-box-size;
-    text-align: center;
-    font-size: 45px;
+  text-align: center;
+  font-size: 45px;
     line-height: @info-box-size;
-    background: rgba(0, 0, 0, 0.2);
-    > img {
-        max-width: 100%;
-    }
+  background: rgba(0, 0, 0, 0.2);
+  > img {
+    max-width: 100%;
+  }
 }
 
 .info-box-content {
@@ -52,29 +48,29 @@
 }
 
 .info-box-number {
-    display: block;
-    font-weight: bold;
+  display: block;
+  font-weight: bold;
     font-size: 32px;
     line-height: 32px;
 }
 
 .progress-description,
 .info-box-text {
-    display: block;
-    font-size: 14px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  display: block;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .info-box-text {
-    text-transform: uppercase;
+  text-transform: uppercase;
 }
 
 .info-box-more {
-    display: block;
+  display: block;
 }
 
 .progress-description {
-    margin: 0;
+  margin: 0;
 }

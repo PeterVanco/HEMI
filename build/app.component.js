@@ -53,6 +53,9 @@ System.register(['angular2/core', 'angular2/router', './appMenu.component', './d
                     this._router = _router;
                     this._hemiService = _hemiService;
                 }
+                AppComponent.prototype.ngAfterViewInit = function () {
+                    $(window).trigger('resize');
+                };
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'app',

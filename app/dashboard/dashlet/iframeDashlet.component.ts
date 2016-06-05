@@ -6,7 +6,7 @@ import {AbstractDashlet} from './abstractDashlet.component';
 
 @Component({
     selector: 'iframe-dashlet',
-    template: '<iframe src="{{iframeSrc}}"></iframe>',
+    template: '<iframe id="{{iframeId}}" src="{{iframeSrc}}"></iframe>',
 	styles: [`
 	iframe {
 		border: none;
@@ -17,6 +17,9 @@ import {AbstractDashlet} from './abstractDashlet.component';
 	`]
 })
 export class IFrameDashlet {
+
+	@Input()
+	iframeId: string;
 
 	@Input()
 	iframeSrc: string;

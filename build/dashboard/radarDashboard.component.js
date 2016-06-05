@@ -34,15 +34,25 @@ System.register(['angular2/core', './abstractDashboard.component', './dashlet/if
                 function RadarDashboard() {
                     _super.apply(this, arguments);
                 }
+                RadarDashboard.prototype.ngAfterViewInit = function () {
+                    var _this = this;
+                    _super.prototype.ngAfterViewInit.call(this);
+                    this.setFullHeight();
+                    $(window).resize(function (e) { return _this.setFullHeight(); });
+                };
                 RadarDashboard.prototype.ngOnInit = function () {
                     _super.prototype.ngOnInit.call(this);
                 };
                 RadarDashboard.prototype.ngOnDestroy = function () {
                     _super.prototype.ngOnDestroy.call(this);
                 };
+                RadarDashboard.prototype.setFullHeight = function () {
+                    $(".box-body-radar").height($(".content-wrapper").height() - 100);
+                    $('#iframe-radar').height($('.box-body-radar').height());
+                };
                 RadarDashboard = __decorate([
                     core_1.Component({
-                        selector: 'camera-dashboard',
+                        selector: 'radar-dashboard',
                         templateUrl: '../tpl/dashboard/radarDashboard.component.html',
                         directives: [iframeDashlet_component_1.IFrameDashlet]
                     }), 

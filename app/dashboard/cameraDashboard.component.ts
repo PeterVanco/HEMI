@@ -2,7 +2,6 @@ import {Component, OnInit, OnDestroy} from 'angular2/core';
 import {RouteParams, Router} from 'angular2/router';
 import {AbstractDashboard} from './abstractDashboard.component';
 import {CameraDashlet} from './dashlet/cameraDashlet.component';
-import {Camera} from '../camera';
 import {HemiService} from '../service/hemiService.service';
 
 @Component({

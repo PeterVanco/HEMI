@@ -1,7 +1,6 @@
 import {Component} from 'angular2/core';
 import {Router, RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 import {AppMenu} from './appMenu.component';
-import {Camera} from './camera';
 import {CurrentTime} from './dashboard/dashlet/currentTime.component';
 import {MainDashboard} from './dashboard/mainDashboard.component';
 import {TempDashboard} from './dashboard/tempDashboard.component';

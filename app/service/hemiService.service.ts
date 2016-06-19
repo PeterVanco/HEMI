@@ -36,6 +36,10 @@ export class HemiService {
                 return response;
             }).catch(this.handleHttpError);
     }
+    
+    public getLastData() {
+        return this._dataProvider.getValue();
+    }
 
     public handleHttpError(error: any) {
         console.log("Server error");

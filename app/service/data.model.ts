@@ -5,6 +5,7 @@ export class DataModel {
     public systemStatus: SystemStatusEnum;
     public sensors: SensorDataModel[];
     public cameras: Camera[];
+    public storageInfo: StorageInfo;
 
 }
 
@@ -52,6 +53,7 @@ export class Camera {
     public color: string;
     public snapshotUri: string;
     public latestSnapshot: CameraSnapshot;
+    public snapshotsGranularity: string;
     public snapshots: CameraSnapshot[];
 
 }
@@ -60,5 +62,14 @@ export class CameraSnapshot {
 
     public timestamp: number;
     public uri: string;
+
+}
+
+export class StorageInfo {
+
+    public freeBytes: number;
+    public totalBytes: number;
+    public snapshotCount: number;
+    public videoCount: number;
 
 }

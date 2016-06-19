@@ -1,4 +1,4 @@
-System.register(['angular2/core', './abstractDashboard.component', './dashlet/cameraDashlet.component'], function(exports_1, context_1) {
+System.register(['angular2/core', './AbstractCameraDashboard.component', './dashlet/cameraDashlet.component', './dashlet/storageInfoDashlet.component', './dashlet/cameraTimelineDashlet.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
@@ -15,18 +15,24 @@ System.register(['angular2/core', './abstractDashboard.component', './dashlet/ca
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, abstractDashboard_component_1, cameraDashlet_component_1;
+    var core_1, AbstractCameraDashboard_component_1, cameraDashlet_component_1, storageInfoDashlet_component_1, cameraTimelineDashlet_component_1;
     var CameraDashboard;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
-            function (abstractDashboard_component_1_1) {
-                abstractDashboard_component_1 = abstractDashboard_component_1_1;
+            function (AbstractCameraDashboard_component_1_1) {
+                AbstractCameraDashboard_component_1 = AbstractCameraDashboard_component_1_1;
             },
             function (cameraDashlet_component_1_1) {
                 cameraDashlet_component_1 = cameraDashlet_component_1_1;
+            },
+            function (storageInfoDashlet_component_1_1) {
+                storageInfoDashlet_component_1 = storageInfoDashlet_component_1_1;
+            },
+            function (cameraTimelineDashlet_component_1_1) {
+                cameraTimelineDashlet_component_1 = cameraTimelineDashlet_component_1_1;
             }],
         execute: function() {
             CameraDashboard = (function (_super) {
@@ -34,22 +40,16 @@ System.register(['angular2/core', './abstractDashboard.component', './dashlet/ca
                 function CameraDashboard() {
                     _super.apply(this, arguments);
                 }
-                CameraDashboard.prototype.ngOnInit = function () {
-                    _super.prototype.ngOnInit.call(this);
-                };
-                CameraDashboard.prototype.ngOnDestroy = function () {
-                    _super.prototype.ngOnDestroy.call(this);
-                };
                 CameraDashboard = __decorate([
                     core_1.Component({
                         selector: 'camera-dashboard',
                         templateUrl: '../tpl/dashboard/cameraDashboard.component.html',
-                        directives: [cameraDashlet_component_1.CameraDashlet],
+                        directives: [cameraDashlet_component_1.CameraDashlet, storageInfoDashlet_component_1.StorageInfoDashlet, cameraTimelineDashlet_component_1.CameraTimelineDashlet],
                     }), 
                     __metadata('design:paramtypes', [])
                 ], CameraDashboard);
                 return CameraDashboard;
-            }(abstractDashboard_component_1.AbstractDashboard));
+            }(AbstractCameraDashboard_component_1.AbstractCameraDashboard));
             exports_1("CameraDashboard", CameraDashboard);
         }
     }

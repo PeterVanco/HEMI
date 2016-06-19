@@ -53,6 +53,9 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_
                         return response;
                     }).catch(this.handleHttpError);
                 };
+                HemiService.prototype.getLastData = function () {
+                    return this._dataProvider.getValue();
+                };
                 HemiService.prototype.handleHttpError = function (error) {
                     console.log("Server error");
                     var errMsg = error.message;

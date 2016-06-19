@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../../service/hemiService.service', './abstractDashlet.component', 'rxjs/Rx', 'angular2/http'], function(exports_1, context_1) {
+System.register(['angular2/core', '../../service/hemiService.service', './abstractChartDashlet.component', 'angular2/http'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
@@ -15,7 +15,7 @@ System.register(['angular2/core', '../../service/hemiService.service', './abstra
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, hemiService_service_1, abstractDashlet_component_1, Rx_1, http_1;
+    var core_1, hemiService_service_1, abstractChartDashlet_component_1, http_1;
     var ChartDashlet;
     return {
         setters:[
@@ -25,11 +25,8 @@ System.register(['angular2/core', '../../service/hemiService.service', './abstra
             function (hemiService_service_1_1) {
                 hemiService_service_1 = hemiService_service_1_1;
             },
-            function (abstractDashlet_component_1_1) {
-                abstractDashlet_component_1 = abstractDashlet_component_1_1;
-            },
-            function (Rx_1_1) {
-                Rx_1 = Rx_1_1;
+            function (abstractChartDashlet_component_1_1) {
+                abstractChartDashlet_component_1 = abstractChartDashlet_component_1_1;
             },
             function (http_1_1) {
                 http_1 = http_1_1;
@@ -38,11 +35,10 @@ System.register(['angular2/core', '../../service/hemiService.service', './abstra
             ChartDashlet = (function (_super) {
                 __extends(ChartDashlet, _super);
                 function ChartDashlet(el, _hemiService, http) {
-                    _super.call(this, _hemiService);
+                    _super.call(this, el, _hemiService, http);
                     this.el = el;
                     this._hemiService = _hemiService;
                     this.http = http;
-                    this.chosenInitialized = false;
                 }
                 ChartDashlet.prototype.extractData = function (model) {
                     return model.sensors;
@@ -72,83 +68,15 @@ System.register(['angular2/core', '../../service/hemiService.service', './abstra
                         _loop_1(i);
                     }
                 };
-                ChartDashlet.prototype.ngOnInit = function () {
-                    _super.prototype.ngOnInit.call(this);
-                };
-                ChartDashlet.prototype.ngOnDestroy = function () {
-                    _super.prototype.ngOnDestroy.call(this);
-                };
-                ChartDashlet.prototype.ngAfterViewInit = function () {
-                    var _this = this;
-                    if (!this.chosenInitialized) {
-                        var plotArea = $(this.el.nativeElement).find('div').empty();
-                        plotArea.css({
-                            width: this.width,
-                            height: this.height
-                        });
-                        this.http.get("app/dashboard/dashlet/chartSettings.settings.obj").catch(function (err) {
-                            console.warn(err);
-                            return Rx_1.Observable.throw(err);
-                        }).subscribe(function (res) {
-                            var evil = eval('(' + res.text() + ')');
-                            _this.initialize(evil);
-                        });
-                        this.chosenInitialized = true;
-                    }
-                };
-                ChartDashlet.prototype.initialize = function (options) {
-                    console.warn("Initializing chart");
-                    console.warn(options);
-                    this.plot = new Highcharts.Chart(options);
-                    // let testSeries: HighchartsIndividualSeriesOptions = {};
-                    // testSeries.name = "Test series";
-                    // this.plot.addSeries<HighchartsIndividualSeriesOptions>(testSeries, true, true);
-                    // let data = [];
-                    // for (let i = 0; i < 100; i++) {
-                    //     data.push([i, Math.random() * 500]);
-                    // }
-                    // this.setData(data, 0);
-                };
-                ChartDashlet.prototype.setData = function (data, series) {
-                    if (typeof series === "string" && this.plot.series.filter(function (s) { return s.name == series; })[0] != null) {
-                        this.plot.series.filter(function (s) { return s.name == series; })[0].setData(data, true, true, true);
-                    }
-                    else if (typeof series === "number" && series >= this.plot.series.length) {
-                        this.plot.series[series].setData(data, true, true, true);
-                    }
-                    else {
-                        console.error("Error setting data to chart");
-                        return;
-                    }
-                };
-                ChartDashlet.prototype.getPlot = function () {
-                    return this.plot;
-                };
-                __decorate([
-                    core_1.Input(), 
-                    __metadata('design:type', Object)
-                ], ChartDashlet.prototype, "dataset", void 0);
-                __decorate([
-                    core_1.Input(), 
-                    __metadata('design:type', String)
-                ], ChartDashlet.prototype, "width", void 0);
-                __decorate([
-                    core_1.Input(), 
-                    __metadata('design:type', String)
-                ], ChartDashlet.prototype, "height", void 0);
-                __decorate([
-                    core_1.Input(), 
-                    __metadata('design:type', String)
-                ], ChartDashlet.prototype, "chartSettingsUri", void 0);
                 ChartDashlet = __decorate([
                     core_1.Component({
                         selector: 'chart-dashlet',
-                        template: "<div id=\"chart-container\">Loading chart ...</div>"
+                        template: "<div class=\"chart\">Loading chart ...</div>"
                     }), 
                     __metadata('design:paramtypes', [core_1.ElementRef, hemiService_service_1.HemiService, http_1.Http])
                 ], ChartDashlet);
                 return ChartDashlet;
-            }(abstractDashlet_component_1.AbstractDashlet));
+            }(abstractChartDashlet_component_1.AbstractChartDashlet));
             exports_1("ChartDashlet", ChartDashlet);
         }
     }

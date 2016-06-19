@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, ViewChild, AfterViewInit} from 'angular2/core';
+import {Component, ViewChild, AfterViewInit, OnInit} from 'angular2/core';
 import {Http} from 'angular2/http';
 import {AbstractDashboard} from './abstractDashboard.component';
 import {InfoDashlet} from './dashlet/infoDashlet.component';
@@ -14,34 +14,15 @@ import {CarouselItemSelector} from './dashlet/control/carouselItemSelector.compo
     templateUrl: '../tpl/dashboard/mainDashboard.component.html',
     directives: [ChartDashlet, InfoDashlet, CameraDashlet, ChartDashletRangeSelector, CarouselItemSelector, WeatherForecastDashlet, IFrameDashlet]
 })
-export class MainDashboard extends AbstractDashboard implements OnInit, OnDestroy, AfterViewInit {
+export class MainDashboard extends AbstractDashboard implements AfterViewInit {
 
 	private name: string;
 	@ViewChild('temperatureChart')
 	temperatureChart: ChartDashlet;
 
-	constructor(private http: Http) {
-		super();
-	}
-
     ngAfterViewInit() {
 		super.ngAfterViewInit();
-		$(window).resize(e => this.equalizeDashletHeights());
-		setInterval(this.equalizeDashletHeights, 1000);
-	}
-
-	ngOnInit() {
-		super.ngOnInit();
-	}
-
-	ngOnDestroy() {
-		super.ngOnDestroy();
-	}
-
-	private equalizeDashletHeights() {
-		if ($('#carousel-cameras').height() != $('#carousel-weather').height()) {
-			$('#carousel-weather').height($('#carousel-cameras').height());
-		}
+		AbstractDashboard.equalizeDashletHeights($('#carousel-cameras'), $('#carousel-weather'));
 	}
 
 }

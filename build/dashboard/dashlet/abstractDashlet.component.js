@@ -15,17 +15,24 @@ System.register(['../../service/data.model'], function(exports_1, context_1) {
                     this.sensorType = data_model_1.SensorTypeEnum;
                 }
                 AbstractDashlet.prototype.ngOnInit = function () {
+                    this.registerObserver();
+                };
+                AbstractDashlet.prototype.registerObserver = function () {
                     var _this = this;
                     console.log(this.getDashletName() + ": Registering observer");
-                    this.handler = this._hemiService.getObservableData(function (model) {
-                        try {
-                            var data = _this.extractData(model);
-                            _this.handleData(data);
-                        }
-                        catch (ex) {
-                            console.log(_this.getDashletName() + ": Error while processing data: " + ex);
-                        }
-                    });
+                    this.handler = this._hemiService.getObservableData(function (data) { return _this.processDataByDashletImplementation(data); });
+                };
+                AbstractDashlet.prototype.processDataByDashletImplementation = function (data) {
+                    try {
+                        var extractedData = this.extractData(data);
+                        this.handleData(extractedData);
+                    }
+                    catch (ex) {
+                        console.log(this.getDashletName() + ": Error while processing data: " + ex);
+                    }
+                };
+                AbstractDashlet.prototype.triggerLastData = function () {
+                    this.processDataByDashletImplementation(this._hemiService.getLastData());
                 };
                 AbstractDashlet.prototype.ngOnDestroy = function () {
                     this.handler.unsubscribe();

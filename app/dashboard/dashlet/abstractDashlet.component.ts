@@ -15,15 +15,26 @@ export abstract class AbstractDashlet<T> implements OnInit, OnDestroy {
 	abstract extractData(model: DataModel): T;
 
 	ngOnInit() {
+		this.registerObserver();
+	}
+
+	protected registerObserver() {
 		console.log(this.getDashletName() + ": Registering observer");
-		this.handler = this._hemiService.getObservableData(model => {
-			try {
-				let data: T = this.extractData(model);
-				this.handleData(data);
-			} catch (ex) {
-				console.log(this.getDashletName() + ": Error while processing data: " + ex);
-			}
-		});
+
+		this.handler = this._hemiService.getObservableData(data => this.processDataByDashletImplementation(data));
+	}
+
+	private processDataByDashletImplementation(data: DataModel) {
+		try {
+			let extractedData: T = this.extractData(data);
+			this.handleData(extractedData);
+		} catch (ex) {
+			console.log(this.getDashletName() + ": Error while processing data: " + ex);
+		}
+	}
+
+	protected triggerLastData() {
+		this.processDataByDashletImplementation(this._hemiService.getLastData());
 	}
 
 	ngOnDestroy() {

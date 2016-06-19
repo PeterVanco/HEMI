@@ -7,20 +7,12 @@ import {IFrameDashlet} from './dashlet/iframeDashlet.component'
     templateUrl: '../tpl/dashboard/radarDashboard.component.html',
 	directives: [IFrameDashlet]
 })
-export class RadarDashboard extends AbstractDashboard implements OnInit, OnDestroy, AfterViewInit {
+export class RadarDashboard extends AbstractDashboard implements AfterViewInit {
 
     ngAfterViewInit() {
 		super.ngAfterViewInit();
 		this.setFullHeight();
 		$(window).resize(e => this.setFullHeight());
-	}
-
-	ngOnInit() {
-		super.ngOnInit();
-	}
-
-	ngOnDestroy() {
-		super.ngOnDestroy();
 	}
 
 	private setFullHeight() {

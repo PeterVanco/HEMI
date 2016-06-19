@@ -9,7 +9,7 @@
     <div class="col-md-12">
         <div class="box box-solid">
             <div class="box-body">
-                <camera-timeline-dashlet [cameraRoute]="cameraRoute"></camera-timeline-dashlet>
+                <camera-timeline-dashlet (timelineChanged)="onTimelineChanged($event)" [cameraRoute]="cameraRoute"></camera-timeline-dashlet>
             </div>
         </div>
     </div>

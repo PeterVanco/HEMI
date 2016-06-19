@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../../service/hemiService.service', './abstractDashlet.component'], function(exports_1, context_1) {
+System.register(['angular2/core', '../../service/hemiService.service', '../../service/data.model', './abstractDashlet.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
@@ -15,8 +15,8 @@ System.register(['angular2/core', '../../service/hemiService.service', './abstra
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, hemiService_service_1, abstractDashlet_component_1;
-    var CameraDashlet;
+    var core_1, hemiService_service_1, data_model_1, abstractDashlet_component_1;
+    var InfoDashlet;
     return {
         setters:[
             function (core_1_1) {
@@ -25,55 +25,59 @@ System.register(['angular2/core', '../../service/hemiService.service', './abstra
             function (hemiService_service_1_1) {
                 hemiService_service_1 = hemiService_service_1_1;
             },
+            function (data_model_1_1) {
+                data_model_1 = data_model_1_1;
+            },
             function (abstractDashlet_component_1_1) {
                 abstractDashlet_component_1 = abstractDashlet_component_1_1;
             }],
         execute: function() {
-            CameraDashlet = (function (_super) {
-                __extends(CameraDashlet, _super);
-                function CameraDashlet(_hemiService) {
+            InfoDashlet = (function (_super) {
+                __extends(InfoDashlet, _super);
+                function InfoDashlet(_hemiService) {
                     _super.call(this, _hemiService);
                     this._hemiService = _hemiService;
-                    this.autorefresh = true;
                 }
-                CameraDashlet.prototype.loadSnapshot = function (snapshot) {
-                    if (snapshot) {
-                        this.autorefresh = snapshot.timestamp == this.camera.latestSnapshot.timestamp;
-                        this.snapshotUri = snapshot.uri;
-                    }
-                };
-                CameraDashlet.prototype.extractData = function (model) {
+                InfoDashlet.prototype.extractData = function (model) {
                     var _this = this;
-                    return model.cameras.filter(function (cam) { return cam.route == _this.cameraRoute; })[0];
+                    return model.sensors.filter(function (di) { return di.id == _this.dashletId && di.type.toString() == data_model_1.SensorTypeEnum[_this.dashletType]; })[0];
                 };
-                CameraDashlet.prototype.handleData = function (data) {
-                    this.camera = data;
-                    if (this.autorefresh) {
-                        this.snapshotUri = this.camera.latestSnapshot.uri;
-                    }
+                InfoDashlet.prototype.handleData = function (data) {
+                    this.sensorData = data;
                 };
-                CameraDashlet.prototype.ngOnInit = function () {
+                InfoDashlet.prototype.ngOnInit = function () {
                     _super.prototype.ngOnInit.call(this);
                 };
-                CameraDashlet.prototype.ngOnDestroy = function () {
+                InfoDashlet.prototype.ngOnDestroy = function () {
                     _super.prototype.ngOnDestroy.call(this);
                 };
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', String)
-                ], CameraDashlet.prototype, "cameraRoute", void 0);
-                CameraDashlet = __decorate([
+                ], InfoDashlet.prototype, "dashletId", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Number)
+                ], InfoDashlet.prototype, "dashletType", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', String)
+                ], InfoDashlet.prototype, "dashletIconClass", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', String)
+                ], InfoDashlet.prototype, "dashletIconColor", void 0);
+                InfoDashlet = __decorate([
                     core_1.Component({
-                        selector: 'camera-dashlet',
-                        templateUrl: '../../tpl/dashboard/dashlet/cameraDashlet.component.html',
-                        styles: ["\n\timg {\n\t\twidth: 100%;\t\n\t}\n\t"]
+                        selector: 'storage-info-dashlet',
+                        templateUrl: '../../tpl/dashboard/dashlet/infoDashlet.component.html'
                     }), 
                     __metadata('design:paramtypes', [hemiService_service_1.HemiService])
-                ], CameraDashlet);
-                return CameraDashlet;
+                ], InfoDashlet);
+                return InfoDashlet;
             }(abstractDashlet_component_1.AbstractDashlet));
-            exports_1("CameraDashlet", CameraDashlet);
+            exports_1("InfoDashlet", InfoDashlet);
         }
     }
 });
-//# sourceMappingURL=cameraDashlet.component.js.map
+//# sourceMappingURL=storageInfo.component.js.map

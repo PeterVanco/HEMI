@@ -1,26 +1,38 @@
-import {Component, Input, OnInit, OnDestroy, AfterViewInit} from 'angular2/core';
+import {Component, Input, AfterViewInit} from 'angular2/core';
 import {Subscription} from 'rxjs/Rx';
 import {DataModel, SensorTypeEnum} from '../service/data.model';
 
-export abstract class AbstractDashboard implements OnInit, OnDestroy, AfterViewInit {
+declare var ResizeSensor: any;
 
-	sensorType = SensorTypeEnum;
+export abstract class AbstractDashboard implements AfterViewInit {
+
+    sensorType = SensorTypeEnum;
 
     ngAfterViewInit() {
-		(window as any).pauseCarousels = () => ($('.carousel') as any).carousel('pause');
-		($('.carousel') as any).carousel();
-	}
+        console.warn("I was called anyway!");
+        (window as any).pauseCarousels = () => ($('.carousel') as any).carousel('pause');
+        ($('.carousel') as any).carousel();
+    }
 
-	ngOnInit() {
+    protected getDashboardName(): string {
+        return (this.constructor as any).name;
+    }
 
-	}
-
-	ngOnDestroy() {
-
-	}
-
-	protected getDashboardName(): string {
-		return (this.constructor as any).name;
-	}
+    public static equalizeDashletHeights(element1: JQuery, element2: JQuery, resizeCallback?: () => void) {
+        console.error("Setting height equalizer for " + element2);
+        let equalize = () => {
+            if (element1.height() != element2.height()) {
+                console.error("Equalizing height of " + element2 + " to " + element1.height());
+                element2.height(element1.height());
+                if (resizeCallback) {
+                    resizeCallback();
+                }
+            }
+        };
+        equalize();
+        new ResizeSensor(element1, equalize);
+        // $(window).resize(equalize);
+        // setInterval(equalize, 1000);
+    }
 
 }

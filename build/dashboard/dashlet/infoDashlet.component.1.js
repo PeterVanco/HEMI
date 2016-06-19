@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../../service/hemiService.service', './abstractDashlet.component'], function(exports_1, context_1) {
+System.register(['angular2/core', '../../service/hemiService.service', '../../service/data.model', './abstractDashlet.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
@@ -15,7 +15,7 @@ System.register(['angular2/core', '../../service/hemiService.service', './abstra
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, hemiService_service_1, abstractDashlet_component_1;
+    var core_1, hemiService_service_1, data_model_1, abstractDashlet_component_1;
     var InfoDashlet;
     return {
         setters:[
@@ -24,6 +24,9 @@ System.register(['angular2/core', '../../service/hemiService.service', './abstra
             },
             function (hemiService_service_1_1) {
                 hemiService_service_1 = hemiService_service_1_1;
+            },
+            function (data_model_1_1) {
+                data_model_1 = data_model_1_1;
             },
             function (abstractDashlet_component_1_1) {
                 abstractDashlet_component_1 = abstractDashlet_component_1_1;
@@ -35,17 +38,12 @@ System.register(['angular2/core', '../../service/hemiService.service', './abstra
                     _super.call(this, _hemiService);
                     this._hemiService = _hemiService;
                 }
-                InfoDashlet.prototype.handleClick = function () {
-                    console.log('Clicked');
-                    this.dashletInfo = null;
-                };
                 InfoDashlet.prototype.extractData = function (model) {
                     var _this = this;
-                    return model.dashletInfo.filter(function (di) { return di.dashletId == _this.dashletId; })[0];
+                    return model.sensors.filter(function (di) { return di.id == _this.dashletId && di.type.toString() == data_model_1.SensorTypeEnum[_this.dashletType]; })[0];
                 };
                 InfoDashlet.prototype.handleData = function (data) {
-                    //console.log(this.constructor.name + ": New dashlet data received");
-                    this.dashletInfo = data;
+                    this.sensorData = data;
                 };
                 InfoDashlet.prototype.ngOnInit = function () {
                     _super.prototype.ngOnInit.call(this);
@@ -59,6 +57,10 @@ System.register(['angular2/core', '../../service/hemiService.service', './abstra
                 ], InfoDashlet.prototype, "dashletId", void 0);
                 __decorate([
                     core_1.Input(), 
+                    __metadata('design:type', Number)
+                ], InfoDashlet.prototype, "dashletType", void 0);
+                __decorate([
+                    core_1.Input(), 
                     __metadata('design:type', String)
                 ], InfoDashlet.prototype, "dashletIconClass", void 0);
                 __decorate([
@@ -68,7 +70,7 @@ System.register(['angular2/core', '../../service/hemiService.service', './abstra
                 InfoDashlet = __decorate([
                     core_1.Component({
                         selector: 'info-dashlet',
-                        templateUrl: '../../tpl/infoDashlet.component.html'
+                        templateUrl: '../../tpl/dashboard/dashlet/infoDashlet.component.html'
                     }), 
                     __metadata('design:paramtypes', [hemiService_service_1.HemiService])
                 ], InfoDashlet);

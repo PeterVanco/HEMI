@@ -36,6 +36,8 @@ System.register(['angular2/core', '../../service/hemiService.service', './abstra
                     _super.call(this, _hemiService);
                     this._el = _el;
                     this._hemiService = _hemiService;
+                    this.timelineChanged = new core_1.EventEmitter();
+                    this.currentIndex = -1;
                     _el.nativeElement.addEventListener('touchstart', function (e) {
                         if ($(e.target).is('a, iframe')) {
                             return true;
@@ -45,19 +47,36 @@ System.register(['angular2/core', '../../service/hemiService.service', './abstra
                     _el.nativeElement.addEventListener('touchmove', function (e) {
                         e.preventDefault();
                     });
-                    $(window).resize(function (e) { return _this.initTimeline(); });
+                    $(window).resize(function (e) {
+                        clearTimeout(_this.resizeHandler);
+                        _this.resizeHandler = setTimeout(function (t) {
+                            _this.reinitTimeline();
+                        }, 500);
+                    });
                 }
-                CameraTimelineDashlet.prototype.initTimeline = function () {
+                CameraTimelineDashlet.prototype.reinitTimeline = function (keepIndex) {
+                    var _this = this;
+                    if (keepIndex === void 0) { keepIndex = true; }
+                    var timeline;
+                    var timelineData = this.buildData();
+                    var timelineMin = Math.min.apply(null, timelineData.map(function (obj) { return obj.startDate; }));
+                    var timelineMax = Math.max.apply(null, timelineData.map(function (obj) { return obj.startDate; }));
                     $(this._el.nativeElement).empty();
                     $(this._el.nativeElement).timeCube({
-                        data: this.buildData(),
-                        granularity: "month",
-                        startDate: new Date('May 1, 2011 10:20:00 pm GMT+0'),
-                        endDate: new Date('September 30, 2011 02:20:00 am GMT+0'),
+                        data: timelineData,
+                        granularity: (this.camera || { snapshotsGranularity: "month" }).snapshotsGranularity,
+                        startDate: new Date(timelineMin - (timelineMax - timelineMin) / 10),
+                        endDate: new Date(timelineMax + (timelineMax - timelineMin) / 10),
                         nextButton: $("#next-link"),
                         previousButton: $("#prev-link"),
                         showDate: false,
-                        onTimelineChange: function (index) { return console.log(index); }
+                        initialIndex: this.currentIndex == -1 ? timelineData.length - 1 : this.currentIndex,
+                        onTimelineChange: function (index) {
+                            _this.currentIndex = index;
+                            // console.log("Emitting event for:", timelineData[index]);
+                            _this.timelineChanged.emit(timelineData[index]);
+                        },
+                        saveReference: function (ref) { return timeline = ref; }
                     });
                 };
                 CameraTimelineDashlet.prototype.extractData = function (model) {
@@ -67,6 +86,7 @@ System.register(['angular2/core', '../../service/hemiService.service', './abstra
                 CameraTimelineDashlet.prototype.handleData = function (data) {
                     this.camera = data;
                     console.log(this.camera.latestSnapshot.uri);
+                    this.reinitTimeline();
                 };
                 CameraTimelineDashlet.prototype.ngOnInit = function () {
                     _super.prototype.ngOnInit.call(this);
@@ -75,32 +95,28 @@ System.register(['angular2/core', '../../service/hemiService.service', './abstra
                     _super.prototype.ngOnDestroy.call(this);
                 };
                 CameraTimelineDashlet.prototype.buildData = function () {
-                    return [{
-                            startDate: (new Date('May 10, 2011 10:29:00 pm GMT+0')),
-                        },
-                        {
-                            startDate: (new Date('June 15, 2011 00:00:00 am GMT+0')),
-                        },
-                        {
-                            startDate: (new Date('July 18, 2011 00:00:00 am GMT+0')),
-                        },
-                        {
-                            startDate: (new Date('July 1, 2011 00:00:00 am GMT+0')),
-                        },
-                        {
-                            startDate: (new Date('August 4, 2011 00:00:00 am GMT+0')),
-                        },
-                        {
-                            startDate: (new Date('August 30, 2011 00:00:00 am GMT+0')),
-                        }];
+                    var snapshots = [];
+                    if (this.camera) {
+                        this.camera.snapshots.forEach(function (snap) {
+                            console.log(snap);
+                            snapshots.push($.extend(snap, {
+                                startDate: new Date(snap.timestamp)
+                            }));
+                        });
+                    }
+                    return snapshots;
                 };
                 CameraTimelineDashlet.prototype.ngAfterViewInit = function () {
-                    this.initTimeline();
+                    this.reinitTimeline();
                 };
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', String)
                 ], CameraTimelineDashlet.prototype, "cameraRoute", void 0);
+                __decorate([
+                    core_1.Output(), 
+                    __metadata('design:type', core_1.EventEmitter)
+                ], CameraTimelineDashlet.prototype, "timelineChanged", void 0);
                 CameraTimelineDashlet = __decorate([
                     core_1.Component({
                         host: {

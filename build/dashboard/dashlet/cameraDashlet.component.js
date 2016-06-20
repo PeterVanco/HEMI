@@ -36,10 +36,17 @@ System.register(['angular2/core', '../../service/hemiService.service', './abstra
                     this._hemiService = _hemiService;
                     this.autorefresh = true;
                 }
+                CameraDashlet.prototype.getCameraRoute = function () {
+                    return this.cameraRoute;
+                };
                 CameraDashlet.prototype.loadSnapshot = function (snapshot) {
                     if (snapshot) {
+                        this.nonAvailableTimelineDate = null;
                         this.autorefresh = snapshot.timestamp == this.camera.latestSnapshot.timestamp;
-                        this.snapshotUri = snapshot.uri;
+                        this.snapshot = snapshot;
+                    }
+                    else {
+                        this.nonAvailableTimelineDate = new Date(this.snapshot.timestamp);
                     }
                 };
                 CameraDashlet.prototype.extractData = function (model) {
@@ -49,7 +56,7 @@ System.register(['angular2/core', '../../service/hemiService.service', './abstra
                 CameraDashlet.prototype.handleData = function (data) {
                     this.camera = data;
                     if (this.autorefresh) {
-                        this.snapshotUri = this.camera.latestSnapshot.uri;
+                        this.snapshot = this.camera.latestSnapshot;
                     }
                 };
                 CameraDashlet.prototype.ngOnInit = function () {

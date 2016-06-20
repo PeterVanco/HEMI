@@ -1,4 +1,4 @@
-System.register(['angular2/core', './dashlet/cameraDashlet.component', './abstractDashboard.component'], function(exports_1, context_1) {
+System.register(['angular2/core', './dashlet/cameraDashlet.component', './abstractDashboard.component', 'angular2/common', 'rxjs/subject/BehaviorSubject'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
@@ -15,7 +15,7 @@ System.register(['angular2/core', './dashlet/cameraDashlet.component', './abstra
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, cameraDashlet_component_1, abstractDashboard_component_1;
+    var core_1, cameraDashlet_component_1, abstractDashboard_component_1, common_1, BehaviorSubject_1;
     var AbstractCameraDashboard;
     return {
         setters:[
@@ -27,21 +27,45 @@ System.register(['angular2/core', './dashlet/cameraDashlet.component', './abstra
             },
             function (abstractDashboard_component_1_1) {
                 abstractDashboard_component_1 = abstractDashboard_component_1_1;
+            },
+            function (common_1_1) {
+                common_1 = common_1_1;
+            },
+            function (BehaviorSubject_1_1) {
+                BehaviorSubject_1 = BehaviorSubject_1_1;
             }],
         execute: function() {
             AbstractCameraDashboard = (function (_super) {
                 __extends(AbstractCameraDashboard, _super);
                 function AbstractCameraDashboard() {
                     _super.apply(this, arguments);
+                    this.cameraRoutes = new BehaviorSubject_1.BehaviorSubject([]);
                 }
+                AbstractCameraDashboard.prototype.ngAfterViewInit = function () {
+                    _super.prototype.ngAfterViewInit.call(this);
+                    this.cameraRoutes.next(this.cameras.map(function (camera) { return camera.getCameraRoute(); }));
+                };
                 AbstractCameraDashboard.prototype.onTimelineChanged = function (snapshot) {
-                    // console.log("Received event for:", snapshot);
-                    this.cameras.forEach(function (camera) { return camera.loadSnapshot(snapshot); });
+                    if (snapshot) {
+                        console.warn(snapshot);
+                        this.cameras
+                            .forEach(function (camera) {
+                            return camera.loadSnapshot(snapshot.snapshots.filter(function (snap) {
+                                return snap.cameraRoute == camera.getCameraRoute();
+                            })[0]);
+                        });
+                    }
                 };
                 __decorate([
                     core_1.ViewChildren(cameraDashlet_component_1.CameraDashlet), 
                     __metadata('design:type', core_1.QueryList)
                 ], AbstractCameraDashboard.prototype, "cameras", void 0);
+                AbstractCameraDashboard = __decorate([
+                    core_1.Component({
+                        pipes: [common_1.AsyncPipe]
+                    }), 
+                    __metadata('design:paramtypes', [])
+                ], AbstractCameraDashboard);
                 return AbstractCameraDashboard;
             }(abstractDashboard_component_1.AbstractDashboard));
             exports_1("AbstractCameraDashboard", AbstractCameraDashboard);

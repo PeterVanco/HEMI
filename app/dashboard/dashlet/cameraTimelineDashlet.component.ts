@@ -3,20 +3,33 @@ import {Observable, Subscription} from 'rxjs/Rx';
 import {HemiService} from '../../service/hemiService.service';
 import {DataModel, Camera, CameraSnapshot} from '../../service/data.model';
 import {AbstractDashlet} from './abstractDashlet.component';
+import {AbstractDashboard} from '../abstractDashboard.component';
+
+declare var ResizeSensor: any;
+
+export interface CameraSnapshotWithRoute extends CameraSnapshot {
+	cameraRoute: string;
+}
+
+export interface TimelineCameraSnapshot {
+	// snapshots: Map<string, CameraSnapshot>,
+	snapshots: CameraSnapshotWithRoute[]
+	startDate: Date
+}
 
 @Component({
 	host: {
 		styles: "timeCube"
 	},
     selector: 'camera-timeline-dashlet',
-    template: ''
+    templateUrl: '../../tpl/dashboard/dashlet/cameraTimelineDashlet.component.html'
 })
-export class CameraTimelineDashlet extends AbstractDashlet<Camera> implements OnInit, OnDestroy, AfterViewInit {
+export class CameraTimelineDashlet extends AbstractDashlet<Camera[]> implements AfterViewInit {
 
-	@Input() cameraRoute: string;
-	@Output() timelineChanged: EventEmitter<CameraSnapshot> = new EventEmitter();
+	@Input() cameraRoutes: string[];
+	@Output() timelineChanged: EventEmitter<TimelineCameraSnapshot> = new EventEmitter();
 
-	private camera: Camera;
+	private cameras: Camera[];
 	private resizeHandler: number;
 	private currentIndex: number = -1;
 
@@ -24,35 +37,33 @@ export class CameraTimelineDashlet extends AbstractDashlet<Camera> implements On
 		protected _hemiService: HemiService) {
 		super(_hemiService);
 
-		_el.nativeElement.addEventListener('touchstart', function (e) {
+		this.getTimelineElement().on('touchstart', function (e) {
 			if ($(e.target).is('a, iframe')) {
 				return true;
 			}
 			e.preventDefault();
 		});
-		_el.nativeElement.addEventListener('touchmove', function (e) {
+		this.getTimelineElement().on('touchmove', function (e) {
 			e.preventDefault();
 		});
+	}
 
-		$(window).resize(e => {
-			clearTimeout(this.resizeHandler);
-			this.resizeHandler = setTimeout(t => {
-				this.reinitTimeline();
-			}, 500);
-		});
+	private getTimelineElement() {
+		return $(this._el.nativeElement).find(".box-body-timeline");
 	}
 
 	private reinitTimeline(keepIndex: boolean = true) {
 
 		let timeline: any;
-		let timelineData: any[] = this.buildData();
+		let timelineData: TimelineCameraSnapshot[] = this.buildData();
 		let timelineMin: number = Math.min.apply(null, timelineData.map(obj => obj.startDate));
 		let timelineMax: number = Math.max.apply(null, timelineData.map(obj => obj.startDate));
 
-		$(this._el.nativeElement).empty();
-		($(this._el.nativeElement) as any).timeCube({
+		this.getTimelineElement().empty();
+		(this.getTimelineElement() as any).timeCube({
 			data: timelineData,
-			granularity: (this.camera || { snapshotsGranularity: "month" }).snapshotsGranularity,
+			// granularity: (this.camera || { snapshotsGranularity: "month" }).snapshotsGranularity,
+			granularity: "month",
 			startDate: new Date(timelineMin - (timelineMax - timelineMin) / 10),
 			endDate: new Date(timelineMax + (timelineMax - timelineMin) / 10),
 			nextButton: $("#next-link"),
@@ -61,7 +72,7 @@ export class CameraTimelineDashlet extends AbstractDashlet<Camera> implements On
 			initialIndex: this.currentIndex == -1 ? timelineData.length - 1 : this.currentIndex,
 			onTimelineChange: (index: number) => {
 				this.currentIndex = index;
-				// console.log("Emitting event for:", timelineData[index]);
+				console.log("Emitting event for:", timelineData[index], index);
 				this.timelineChanged.emit(timelineData[index]);
 			},
 			saveReference: ref => timeline = ref
@@ -69,39 +80,67 @@ export class CameraTimelineDashlet extends AbstractDashlet<Camera> implements On
 	}
 
 	extractData(model: DataModel) {
-		return model.cameras.filter(cam => cam.route == this.cameraRoute)[0];
+		return model.cameras.filter(cam => (this.cameraRoutes || []).some(cr => cam.route == cr));
 	}
 
-	handleData(data: Camera) {
-		this.camera = data;
-		console.log(this.camera.latestSnapshot.uri);
+	handleData(data: Camera[]) {
+		this.cameras = data;
 		this.reinitTimeline();
 	}
 
-	ngOnInit() {
-		super.ngOnInit();
-	}
-
-	ngOnDestroy() {
-		super.ngOnDestroy();
-	}
-
 	private buildData() {
-		let snapshots: any[] = [];
-		if (this.camera) {
-			this.camera.snapshots.forEach(snap => {
-				console.log(snap);
-				snapshots.push($.extend(snap, {
-					startDate: new Date(snap.timestamp)
-				}));
+		let snapshots: TimelineCameraSnapshot[] = [];
+		if (this.cameras) {
+
+			let allSnapshots: CameraSnapshotWithRoute[] = [].concat.apply([], this.cameras.map(camera =>
+				camera.snapshots.map(snapshot =>
+					$.extend(snapshot, { cameraRoute: camera.route })
+				)
+			));
+
+			let snapshotMap = allSnapshots.reduce((map, snapshot) => {
+				let snapshotsForTimestamp = (map.get(snapshot.timestamp) || []).concat(snapshot);
+				map.set(snapshot.timestamp, snapshotsForTimestamp);
+				return map;
+			}, new Map<number, CameraSnapshotWithRoute[]>());
+
+			snapshotMap.forEach((snapsWithRoute, timestamp) => {
+				snapshots.push({
+					// snapshots: snapsWithRoute.reduce((map, s) => {
+					// 	map.set(s.cameraRoute, s);
+					// 	return map;
+					// }, new Map<string, CameraSnapshot>()),
+					snapshots: snapsWithRoute,
+					startDate: new Date(timestamp)
+				});
 			});
+
+			// this.cameras.forEach(cam => {
+			// 	cam.snapshots.forEach(snap => {
+			// 		console.log(snap);
+
+			// 		snapshots.push({
+			// 			snapshots: new Map<string, CameraSnapshot>(),
+			// 			startDate: new Date(snap.timestamp)
+			// 		});
+
+			// 		snapshots.push($.extend(snap, {
+			// 			cameraRoute: cam.route,
+			// 			startDate: new Date(snap.timestamp)
+			// 		}));
+			// 	});
+			// });
+
 		}
 		return snapshots;
 	}
 
 	ngAfterViewInit() {
 		this.reinitTimeline();
+		new ResizeSensor($(this._el.nativeElement).find(".box-timeline"), () => {
+			console.warn("Width changed");
+			this.reinitTimeline();
+		});
 	}
-
 
 }

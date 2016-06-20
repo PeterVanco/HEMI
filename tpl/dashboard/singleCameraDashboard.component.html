@@ -6,11 +6,5 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-12">
-        <div class="box box-solid">
-            <div class="box-body">
-                <camera-timeline-dashlet (timelineChanged)="onTimelineChanged($event)" [cameraRoute]="cameraRoute"></camera-timeline-dashlet>
-            </div>
-        </div>
-    </div>
+    <camera-timeline-dashlet (timelineChanged)="onTimelineChanged($event)" [cameraRoutes]="[cameraRoute]"></camera-timeline-dashlet>
 </div>

@@ -19,18 +19,26 @@ export class CameraDashlet extends AbstractDashlet<Camera> implements OnInit, On
 	private cameraRoute: string;
 
 	private camera: Camera;
-	private snapshotUri: string;
+	private snapshot: CameraSnapshot;
 	private autorefresh = true;
+	private nonAvailableTimelineDate: Date;
 
 	constructor(
 		protected _hemiService: HemiService) {
 		super(_hemiService);
 	}
+	
+	getCameraRoute() {
+		return this.cameraRoute;
+	}
 
 	loadSnapshot(snapshot: CameraSnapshot) {
 		if (snapshot) {
+			this.nonAvailableTimelineDate = null;
 			this.autorefresh = snapshot.timestamp == this.camera.latestSnapshot.timestamp;
-			this.snapshotUri = snapshot.uri;
+			this.snapshot = snapshot;
+		} else {
+			this.nonAvailableTimelineDate = new Date(this.snapshot.timestamp);
 		}
 	}
 
@@ -41,7 +49,7 @@ export class CameraDashlet extends AbstractDashlet<Camera> implements OnInit, On
 	handleData(data: Camera) {
 		this.camera = data;
 		if (this.autorefresh) {
-			this.snapshotUri = this.camera.latestSnapshot.uri;
+			this.snapshot = this.camera.latestSnapshot;
 		}
 	}
 

@@ -22,7 +22,10 @@ export interface TimelineCameraSnapshot {
 		styles: "timeCube"
 	},
     selector: 'camera-timeline-dashlet',
-    templateUrl: '../../tpl/dashboard/dashlet/cameraTimelineDashlet.component.html'
+    templateUrl: '../../tpl/dashboard/dashlet/cameraTimelineDashlet.component.html',
+	styles: [`.timeCube {
+		margin: 0px;
+	}`]
 })
 export class CameraTimelineDashlet extends AbstractDashlet<Camera[]> implements AfterViewInit {
 
@@ -66,8 +69,8 @@ export class CameraTimelineDashlet extends AbstractDashlet<Camera[]> implements 
 			granularity: "month",
 			startDate: new Date(timelineMin - (timelineMax - timelineMin) / 10),
 			endDate: new Date(timelineMax + (timelineMax - timelineMin) / 10),
-			nextButton: $("#next-link"),
-			previousButton: $("#prev-link"),
+			previousButton: $(this._el.nativeElement).find(".timeline-previous"),
+			nextButton: $(this._el.nativeElement).find(".timeline-next"),
 			showDate: false,
 			initialIndex: this.currentIndex == -1 ? timelineData.length - 1 : this.currentIndex,
 			onTimelineChange: (index: number) => {
@@ -137,10 +140,12 @@ export class CameraTimelineDashlet extends AbstractDashlet<Camera[]> implements 
 
 	ngAfterViewInit() {
 		this.reinitTimeline();
-		new ResizeSensor($(this._el.nativeElement).find(".box-timeline"), () => {
-			console.warn("Width changed");
-			this.reinitTimeline();
-		});
+		new ResizeSensor($(this._el.nativeElement).find(".box-timeline"), () =>
+			this.reinitTimeline()
+		);
+		$(this._el.nativeElement).find(".timeline-button").each((i, child) => 
+			AbstractDashboard.equalizeDashletHeights($(this._el.nativeElement).find(".box-body-timeline"), $(child))
+		);
 	}
 
 }

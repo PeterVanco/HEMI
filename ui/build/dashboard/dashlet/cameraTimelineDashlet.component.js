@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../../service/hemiService.service', './abstractDashlet.component'], function(exports_1, context_1) {
+System.register(['angular2/core', '../../service/hemiService.service', './abstractDashlet.component', '../abstractDashboard.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
@@ -15,7 +15,7 @@ System.register(['angular2/core', '../../service/hemiService.service', './abstra
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, hemiService_service_1, abstractDashlet_component_1;
+    var core_1, hemiService_service_1, abstractDashlet_component_1, abstractDashboard_component_1;
     var CameraTimelineDashlet;
     return {
         setters:[
@@ -27,6 +27,9 @@ System.register(['angular2/core', '../../service/hemiService.service', './abstra
             },
             function (abstractDashlet_component_1_1) {
                 abstractDashlet_component_1 = abstractDashlet_component_1_1;
+            },
+            function (abstractDashboard_component_1_1) {
+                abstractDashboard_component_1 = abstractDashboard_component_1_1;
             }],
         execute: function() {
             CameraTimelineDashlet = (function (_super) {
@@ -64,8 +67,8 @@ System.register(['angular2/core', '../../service/hemiService.service', './abstra
                         granularity: "month",
                         startDate: new Date(timelineMin - (timelineMax - timelineMin) / 10),
                         endDate: new Date(timelineMax + (timelineMax - timelineMin) / 10),
-                        nextButton: $("#next-link"),
-                        previousButton: $("#prev-link"),
+                        previousButton: $(this._el.nativeElement).find(".timeline-previous"),
+                        nextButton: $(this._el.nativeElement).find(".timeline-next"),
                         showDate: false,
                         initialIndex: this.currentIndex == -1 ? timelineData.length - 1 : this.currentIndex,
                         onTimelineChange: function (index) {
@@ -114,8 +117,10 @@ System.register(['angular2/core', '../../service/hemiService.service', './abstra
                     var _this = this;
                     this.reinitTimeline();
                     new ResizeSensor($(this._el.nativeElement).find(".box-timeline"), function () {
-                        console.warn("Width changed");
-                        _this.reinitTimeline();
+                        return _this.reinitTimeline();
+                    });
+                    $(this._el.nativeElement).find(".timeline-button").each(function (i, child) {
+                        return abstractDashboard_component_1.AbstractDashboard.equalizeDashletHeights($(_this._el.nativeElement).find(".box-body-timeline"), $(child));
                     });
                 };
                 __decorate([
@@ -132,7 +137,8 @@ System.register(['angular2/core', '../../service/hemiService.service', './abstra
                             styles: "timeCube"
                         },
                         selector: 'camera-timeline-dashlet',
-                        templateUrl: '../../tpl/dashboard/dashlet/cameraTimelineDashlet.component.html'
+                        templateUrl: '../../tpl/dashboard/dashlet/cameraTimelineDashlet.component.html',
+                        styles: [".timeCube {\n\t\tmargin: 0px;\n\t}"]
                     }), 
                     __metadata('design:paramtypes', [core_1.ElementRef, hemiService_service_1.HemiService])
                 ], CameraTimelineDashlet);

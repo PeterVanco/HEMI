@@ -6,32 +6,51 @@
 	"isShellCommand": true,
 	"showOutput": "always",
 	"suppressTaskName": true,
+	"options": {
+		"cwd": "${workspaceRoot}/ui"
+	},
 	"tasks": [
 		{
 			"taskName": "install",
-			"args": ["install"]
+			"args": [
+				"install"
+			]
 		},
 		{
 			"taskName": "update",
-			"args": ["update"]
+			"args": [
+				"update"
+			]
 		},
 		{
 			"taskName": "test",
-			"args": ["run", "test"]
+			"args": [
+				"run",
+				"test"
+			]
 		},
 		{
 			"taskName": "start",
-			"args": ["run", "start"],
+			"args": [
+				"run",
+				"start"
+			],
 			"problemMatcher": "$tsc-watch"
 		},
 		{
 			"taskName": "build",
-			"args": ["run", "tsc"],
+			"args": [
+				"run",
+				"tsc"
+			],
 			"problemMatcher": "$tsc"
 		},
 		{
 			"taskName": "watch",
-			"args": ["run", "tsc:w"],
+			"args": [
+				"run",
+				"tsc:w"
+			],
 			"problemMatcher": "$tsc-watch"
 		}
 	]

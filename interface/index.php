@@ -6,7 +6,7 @@ header('Access-Control-Allow-Origin: *');
 
 function __fatalHandler()
 {
-    $error      = error_get_last();
+    $error = error_get_last();
     if($error !== NULL && $error['type'] === E_ERROR) {
         responseCode(500);
         print_r($error);
@@ -17,8 +17,8 @@ register_shutdown_function('__fatalHandler');
 
 // setup
 
-require_once('../inc/db/meekrodb.2.3.class.php');
-require_once('../inc/smarty/Smarty.class.php');
+require_once('includes/db/meekrodb.2.3.class.php');
+require_once('includes/smarty/Smarty.class.php');
 
 DB::$host = '82.208.7.136';
 DB::$user = 'nh490800';

@@ -2,7 +2,7 @@
 
 function handleAction($camId) {
 
-	echo "http://localhost/hemi/upload/" . $camId . ".jpg";
+	echo "http://localhost/hemi/interface/?generateSnapshot&camId=" . $camId . "&t=" . now();
 
 }
 

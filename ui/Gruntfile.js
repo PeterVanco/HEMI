@@ -12,9 +12,14 @@ module.exports = function (grunt) {
 
   grunt.initConfig({
     watch: {
-      // If any .less file changes in directory "build/less/" run the "less"-task.
-      files: ["build/less/**/*.less", "dist/js/app.js"],
-      tasks: ["less", "uglify"]
+      less: {
+        files: ["build/less/**/*.less"],
+        tasks: ["less"]
+      },
+      javascript: {
+        files: ["dist/js/app.js"],
+        tasks: ["uglify"]
+      }
     },
     // "less"-task configuration
     // This task will compile all less files upon saving to create both AdminLTE.css and AdminLTE.min.css
@@ -72,6 +77,7 @@ module.exports = function (grunt) {
         }
       }
     },
+
     // Uglify task info. Compress the js files.
     uglify: {
       options: {
@@ -81,19 +87,6 @@ module.exports = function (grunt) {
       my_target: {
         files: {
           'dist/js/app.min.js': ['dist/js/app.js']
-        }
-      }
-    },
-    // Build the documentation files
-    includes: {
-      build: {
-        src: ['*.html'], // Source files
-        dest: 'documentation/', // Destination directory
-        flatten: true,
-        cwd: 'documentation/build',
-        options: {
-          silent: true,
-          includePath: 'documentation/build/include'
         }
       }
     },

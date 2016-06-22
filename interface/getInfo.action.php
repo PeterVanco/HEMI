@@ -87,11 +87,6 @@ function getRandomData($count, $stamp, $min, $max) {
 
 function getRandomSnapshotData($count, $stamp, $name) {
   
-  $tempUrls = array();
-  $tempUrls[] = "http://localhost/hemi/upload/1.jpg";
-  
-  
-  
   $values = array();
   for ($i = 0; $i < $count; $i++) {
     $calculatedStamp = $stamp + ($i * 100000000);

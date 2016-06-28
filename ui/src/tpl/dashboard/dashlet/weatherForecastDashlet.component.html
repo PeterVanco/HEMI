@@ -1,0 +1,11 @@
+<div class="forecast-wrapper">
+    <div *ngFor="#day of forecast" attr.style="width: {{100 / forecast.length}}%" class="forecast-day">
+        <div class="forecast-day-name">{{resolveForecastDay(day?.dt)}}</div>
+        <i class="owf owf-{{day?.weather[0].id}} owf-lg owf-5x"></i>
+        <div class="forecast-temp">{{day?.temp.day | number:format | temp}}</div>
+        <div class="forecast-temp-minmax">
+            <div class="forecast-temp-min">{{day?.temp.min | number:format | temp}}</div>
+            <div class="forecast-temp-max">{{day?.temp.max | number:format | temp}}</div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+<div class="box-header with-border">
+    <h3 class="box-title">{{camera?.name}}</h3>
+    <div class="box-tools pull-right">
+        <span *ngIf="nonAvailableTimelineDate" data-toggle="tooltip" title="Pre túto kameru nie je zvolený čas k dispozícii" class="badge bg-red">Zobrazuje sa {{nonAvailableTimelineDate | date}}</span>
+    </div>
+</div>
+<div class="box-body">
+    <img src="{{snapshot?.uri}}" />
+</div>

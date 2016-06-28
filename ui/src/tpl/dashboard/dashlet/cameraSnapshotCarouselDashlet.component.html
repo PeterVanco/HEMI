@@ -1,0 +1,19 @@
+<div id="{{carouselId}}" class="carousel slide" data-interval="4000" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li *ngFor="#camera of cameras; #idx = index" attr.data-target="#{{carouselId}}" attr.data-slide-to="{{idx}}" [ngClass]="{active: idx == 0}"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div *ngFor="#camera of cameras; #idx = index" class="item" [ngClass]="{active: idx == 0}">
+            <img class="camera-{{camera.route}}" src="{{camera.latestSnapshot?.uri}}" alt="{{camera?.latestSnapshot?.timestamp | date}}">
+            <div class="carousel-caption">
+                {{camera.name}}
+            </div>
+        </div>
+    </div>
+    <a class="left carousel-control" href="#{{carouselId}}" data-slide="prev">
+        <span class="fa fa-angle-left"></span>
+    </a>
+    <a class="right carousel-control" href="#{{carouselId}}" data-slide="next">
+        <span class="fa fa-angle-right"></span>
+    </a>
+</div>

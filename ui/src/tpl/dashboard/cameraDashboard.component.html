@@ -1,0 +1,27 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class="box box-solid">
+            <camera-dashlet [cameraRoute]="'zahrada'"></camera-dashlet>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="box box-solid">
+            <camera-dashlet [cameraRoute]="'predzahradka'"></camera-dashlet>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="box box-solid" id="camera-box">
+            <camera-dashlet [cameraRoute]="'vstupna-hala'"></camera-dashlet>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="box box-solid" id="storage-box">
+            <storage-info-dashlet [chartSettingsUri]="'tpl/dashboard/dashlet/settings/storageInfoChart.settings.js'" width="100%"></storage-info-dashlet>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <camera-timeline-dashlet (timelineChanged)="onTimelineChanged($event)" [cameraRoutes]="cameraRoutes | async"></camera-timeline-dashlet>
+</div>

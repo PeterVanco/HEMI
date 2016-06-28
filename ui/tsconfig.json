@@ -9,7 +9,7 @@
     "experimentalDecorators": true,
     "removeComments": false,
     "noImplicitAny": false,
-    "outDir": "target/js/app"
+    "outDir": "dist/js/app"
   },
   "exclude": [
     "node_modules",

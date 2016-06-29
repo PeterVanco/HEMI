@@ -31,21 +31,21 @@
     </li>
     <li>
         <a href="#">
-            <i class="fa fa-dashboard"></i>
+            <i class="fa fa-tint text-blue"></i>
             <span>Vlhkosť</span>
             <span class="label label-primary pull-right">17</span>
         </a>
     </li>
     <li>
         <a href="#">
-            <i class="fa fa-dashboard"></i>
+            <i class="fa fa-sun-o text-orange"></i>
             <span>Slnečnosť</span>
             <span class="label label-primary pull-right bg-red">53</span>
         </a>
     </li>
     <li [class.active]="isRouterLinkActive(['RadarDashboard'])">
         <a href="#" [routerLink]="['RadarDashboard']">
-            <i class="fa fa-dashboard"></i>
+            <i class="fa fa-cloud text-green"></i>
             <span>Radar</span>
         </a>
     </li>
@@ -56,5 +56,5 @@
             <span>Prehľad</span>
         </a>
     </li>
-    <li *ngFor="#camera of cameras" [class.active]="isRouterLinkActive(['SingleCameraDashboard', { cameraRoute: camera.route }])" [routerLink]="['SingleCameraDashboard', { cameraRoute: camera.route }]"><a href="#"><i class="fa fa-circle-o text-{{camera.color}}"></i> <span>{{camera.name}}</span></a></li>
+    <li *ngFor="#camera of cameras" [class.active]="isRouterLinkActive(['SingleCameraDashboard', { cameraRoute: camera.route }])" [routerLink]="['SingleCameraDashboard', { cameraRoute: camera.route }]"><a href="#"><i class="fa fa-video-camera text-{{camera.color}}"></i> <span>{{camera.name}}</span></a></li>
 </ul>

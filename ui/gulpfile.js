@@ -6,6 +6,7 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var less = require('gulp-less');
 var sourcemaps = require('gulp-sourcemaps');
+var cleancss = require('gulp-clean-css');
 var autoprefixer = require('gulp-autoprefixer');
 var rename = require('gulp-rename');
 var using = require('gulp-using');
@@ -44,6 +45,22 @@ gulp.task('lint', function () {
         .pipe(jshint.reporter('default'));
 });
 
+gulp.task('less:bootstrap', function () {
+    return gulp.src([
+        // include all from bootstrap
+        'src/less/bootstrap/**/bootstrap.less'])
+        // process
+        .pipe(using(using_input_opts))
+        .pipe(sourcemaps.init())
+        .pipe(less())
+        .pipe(autoprefixer())
+        .pipe(cleancss({compatibility: 'ie8'}))
+        .pipe(rename('bootstrap.min.css'))
+        .pipe(sourcemaps.write('.'))
+        .pipe(using(using_output_opts))
+        .pipe(gulp.dest(dest('less')));
+});
+
 gulp.task('less:app', function () {
     return gulp.src([
         // include all from app
@@ -53,12 +70,13 @@ gulp.task('less:app', function () {
         .pipe(sourcemaps.init())
         .pipe(less())
         .pipe(autoprefixer())
+        .pipe(cleancss({compatibility: 'ie8'}))
         .pipe(sourcemaps.write('.'))
         .pipe(using(using_output_opts))
         .pipe(gulp.dest(dest('less')));
 });
 
-gulp.task('less', ['less:app'], function () {
+gulp.task('less', ['less:bootstrap', 'less:app'], function () {
     return gulp.src([
         // include all from less source dir
         src('less'),
@@ -75,8 +93,9 @@ gulp.task('less', ['less:app'], function () {
         .pipe(using(using_input_opts))
         .pipe(sourcemaps.init())
         .pipe(less())
+        .pipe(concat('hemi.min.css'))
         .pipe(autoprefixer())
-        .pipe(concat('hemi.css'))
+        .pipe(cleancss({compatibility: 'ie8'}))
         .pipe(sourcemaps.write('.'))
         .pipe(using(using_output_opts))
         .pipe(gulp.dest(dest('less')));

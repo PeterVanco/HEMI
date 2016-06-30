@@ -22,6 +22,10 @@ var dest_path = Array();
 var dest_dir = 'dist'
 var dest = type => dest_dir + dest_path[type];
 
+// Fonts => Simply copy
+src_path['fonts'] = '/fonts/**/*';
+dest_path['fonts'] = '/fonts';
+
 // JavaScript => Lint + Concat + Uglify
 src_path['js'] = '/js/**/*.js';
 dest_path['js'] = '/js';
@@ -29,7 +33,6 @@ dest_path['js'] = '/js';
 // Less => CSS + Autoprefix + Minify
 src_path['less'] = '/less/**/*.less';
 dest_path['less'] = '/css';
-
 src_path['css'] = '/less/**/*.css';
 dest_path['css'] = '/css';
 
@@ -38,8 +41,19 @@ var using_input_opts = { prefix: 'Using file', path: 'relative', color: 'yellow'
 var using_output_opts = { prefix: 'Writing file', path: 'relative', color: 'red', filesize: true };
 var AdminLTE_skin = 'green';
 
+gulp.task('fonts', function () {
+    return gulp.src(src('fonts'))
+        .pipe(using(using_input_opts))
+        .pipe(using(using_output_opts))
+        .pipe(gulp.dest(dest('fonts')));
+});
+
 gulp.task('lint', function () {
-    return gulp.src(src('js'))
+    return gulp.src([
+        src('js'),
+        // exclude bootstrap
+        '!src/js/bootstrap/**/'
+        ])
         .pipe(using(using_input_opts))
         .pipe(jshint())
         .pipe(jshint.reporter('default'));
@@ -119,4 +133,4 @@ gulp.task('watch', function () {
     gulp.watch([src('less'), src('css')], ['less']);
 });
 
-gulp.task('default', ['less', 'scripts', 'watch']);
+gulp.task('default', ['fonts', 'less', 'scripts', 'watch']);

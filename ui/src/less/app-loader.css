@@ -1,8 +1,9 @@
 .spinner {
-    width: 40px;
-    height: 40px;
-    position: relative;
-    margin: 100px auto;
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    left: 50%;
+    top: 45%;
 }
 
 .double-bounce1,

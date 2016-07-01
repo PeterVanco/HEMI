@@ -4,6 +4,40 @@ import {Subscription} from 'rxjs/Rx';
 import {MenuInfoDashlet} from './dashboard/dashlet/menuInfoDashlet.component'
 import {SensorTypeEnum, Camera} from './service/data.model';
 import {HemiService} from './service/hemiService.service';
+import {MainDashboard} from './dashboard/mainDashboard.component';
+import {TempDashboard} from './dashboard/tempDashboard.component';
+import {RadarDashboard} from './dashboard/radarDashboard.component';
+import {CameraDashboard} from './dashboard/cameraDashboard.component';
+import {SingleCameraDashboard} from './dashboard/singleCameraDashboard.component';
+
+export const AppRoutes = [
+
+    {
+        path: '',
+        redirectTo: '/dashboard',
+        terminal: true
+    },
+    {
+        path: 'dashboard',
+        component: MainDashboard
+    },
+    {
+        path: 'teplota',
+        component: TempDashboard
+    },
+    {
+        path: 'radar',
+        component: RadarDashboard
+    },
+    {
+        path: 'kamery',
+        component: CameraDashboard
+    },
+    {
+        path: 'kamera/:cameraRoute',
+        component: SingleCameraDashboard
+    }
+];
 
 @Component({
     selector: 'app-menu',
@@ -12,13 +46,12 @@ import {HemiService} from './service/hemiService.service';
 })
 export class AppMenu implements OnInit {
 
-    @Input() _router: Router;
-
     private handler: Subscription;
     private cameras: Camera[];
     private sensorType = SensorTypeEnum;
 
-    constructor(protected _hemiService: HemiService) { }
+    constructor(protected _router: Router,
+        protected _hemiService: HemiService) { }
 
     ngOnInit() {
         this.handler = this._hemiService.getObservableData(model => {
@@ -26,13 +59,14 @@ export class AppMenu implements OnInit {
                 this.cameras = model.cameras;
                 this.handler.unsubscribe();
             } catch (ex) {
-                console.error("Could not extract cameras for menu");                
+                console.error("Could not extract cameras for menu");
             }
         });
     }
 
-    isRouterLinkActive(params: any[]): boolean {
-        return this._router.isRouteActive(this._router.generate(params));
+    navigate(path: string, params: any) {
+        console.log("Navigating to", path, "with params", params);
+        this._router.navigate(['/' + path, params]);
     }
 
 }

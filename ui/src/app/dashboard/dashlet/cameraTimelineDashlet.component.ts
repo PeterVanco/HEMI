@@ -33,16 +33,26 @@ export interface TimelineCameraSnapshot {
 		display: table-cell;
 		vertical-align: middle;	
 	}
+	.box-body.timeline-button:not(.disabled) {
+		cursor: pointer;
+	}
+	.box-body.timeline-button.disabled {
+		opacity: 0.5;
+	}
 	.box-body.timeline-button>img {
 		width: 100%;
 	}
-	img.disabled {
-		opacity: 0.5;
-	}`]
+	`]
 })
 export class CameraTimelineDashlet extends AbstractDashlet<Camera[]> implements AfterViewInit {
 
-	@Input() cameraRoutes: string[];
+	@Input()
+	set cameraRoutes(value: string[]) {
+		this._cameraRoutes = value;
+		super.triggerLastData();
+	}
+	private _cameraRoutes: string[];
+
 	@Output() timelineChanged: EventEmitter<TimelineCameraSnapshot> = new EventEmitter<TimelineCameraSnapshot>();
 
 	private cameras: Camera[];
@@ -96,7 +106,7 @@ export class CameraTimelineDashlet extends AbstractDashlet<Camera[]> implements 
 	}
 
 	extractData(model: DataModel) {
-		return model.cameras.filter(cam => (this.cameraRoutes || []).some(cr => cam.route == cr));
+		return model.cameras.filter(cam => (this._cameraRoutes || []).some(cr => cam.route == cr));
 	}
 
 	handleData(data: Camera[]) {

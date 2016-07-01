@@ -22,6 +22,10 @@ var dest_path = Array();
 var dest_dir = 'dist'
 var dest = type => dest_dir + dest_path[type];
 
+// Images => Simply copy
+src_path['img'] = '/img/**/*';
+dest_path['img'] = '/img';
+
 // Fonts => Simply copy
 src_path['fonts'] = '/fonts/**/*';
 dest_path['fonts'] = '/fonts';
@@ -48,6 +52,13 @@ gulp.task('fonts', function () {
         .pipe(gulp.dest(dest('fonts')));
 });
 
+gulp.task('img', function () {
+    return gulp.src(src('img'))
+        .pipe(using(using_input_opts))
+        .pipe(using(using_output_opts))
+        .pipe(gulp.dest(dest('img')));
+});
+
 gulp.task('lint', function () {
     return gulp.src([
         src('js'),
@@ -63,7 +74,6 @@ gulp.task('less:bootstrap', function () {
     return gulp.src([
         // include all from bootstrap
         'src/less/bootstrap/**/bootstrap.less'])
-        // process
         .pipe(using(using_input_opts))
         .pipe(sourcemaps.init())
         .pipe(less())
@@ -96,13 +106,13 @@ gulp.task('less', ['less:bootstrap', 'less:app'], function () {
         src('less'),
         src('css'),
         // exclude app - css is loaded with SystemJS
-        '!src/less/app/**/',
+        '!src/**/app/**/',
         // exclude bootstrap
-        '!src/less/bootstrap/**/',
+        '!src/**/bootstrap/**/',
         // exclude everything from admin-lte except main file
-        '!src/less/admin-lte/!(AdminLTE.less)',
+        '!src/**/admin-lte/!(AdminLTE.less)',
         // include skin
-        '!src/less/admin-lte/skins/!(skin-' + AdminLTE_skin + '.less)'])
+        '!src/**/admin-lte/skins/!(skin-' + AdminLTE_skin + '.less)'])
         // process
         .pipe(using(using_input_opts))
         .pipe(sourcemaps.init())
@@ -115,8 +125,27 @@ gulp.task('less', ['less:bootstrap', 'less:app'], function () {
         .pipe(gulp.dest(dest('less')));
 });
 
-gulp.task('scripts', ['lint'], function () {
-    return gulp.src(src('js'))
+gulp.task('js:bootstrap', function () {
+    return gulp.src([
+        // include all from bootstrap
+        'src/js/bootstrap/**/*.js'])
+        .pipe(using(using_input_opts))
+        .pipe(sourcemaps.init())
+        .pipe(concat('bootstrap.min.js'))
+        // .pipe(gulp.dest(dest('js')))
+        // .pipe(rename('hemi.min.js'))
+        // .pipe(uglify())
+        .pipe(sourcemaps.write('.'))
+        .pipe(using(using_output_opts))
+        .pipe(gulp.dest(dest('js')));
+});
+
+gulp.task('js', ['js:bootstrap', 'lint'], function () {
+    return gulp.src([
+        src('js'),
+        // exclude bootstrap
+        '!src/**/bootstrap/**/',
+        ])
         .pipe(using(using_input_opts))
         .pipe(sourcemaps.init())
         .pipe(concat('hemi.min.js'))
@@ -129,8 +158,8 @@ gulp.task('scripts', ['lint'], function () {
 });
 
 gulp.task('watch', function () {
-    gulp.watch([src('scripts')], ['scripts']);
+    gulp.watch([src('js')], ['js']);
     gulp.watch([src('less'), src('css')], ['less']);
 });
 
-gulp.task('default', ['fonts', 'less', 'scripts', 'watch']);
+gulp.task('default', ['img', 'fonts', 'less', 'js', 'watch']);

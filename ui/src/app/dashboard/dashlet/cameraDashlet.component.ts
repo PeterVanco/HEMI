@@ -16,9 +16,13 @@ import {AbstractDashlet} from './abstractDashlet.component';
 export class CameraDashlet extends AbstractDashlet<Camera> implements OnInit, OnDestroy {
 
 	@Input()
-	private cameraRoute: string;
+	set cameraRoute(value: string) {
+		this._cameraRoute = value;
+		super.triggerLastData();
+	}
 
 	private camera: Camera;
+	private _cameraRoute: string;
 	private snapshot: CameraSnapshot;
 	private autorefresh = true;
 	private nonAvailableTimelineDate: Date;
@@ -29,7 +33,7 @@ export class CameraDashlet extends AbstractDashlet<Camera> implements OnInit, On
 	}
 	
 	getCameraRoute() {
-		return this.cameraRoute;
+		return this._cameraRoute;
 	}
 
 	loadSnapshot(snapshot: CameraSnapshot) {
@@ -43,7 +47,8 @@ export class CameraDashlet extends AbstractDashlet<Camera> implements OnInit, On
 	}
 
 	extractData(model: DataModel) {
-		return model.cameras.filter(cam => cam.route == this.cameraRoute)[0];
+		console.warn("Loading camera", this._cameraRoute);
+		return model.cameras.filter(cam => cam.route == this._cameraRoute)[0];
 	}
 
 	handleData(data: Camera) {

@@ -1,7 +1,8 @@
 import {bootstrap}    from '@angular/platform-browser-dynamic';
 import {AppComponent} from './app.component';
-import {ROUTER_DIRECTIVES} from '@angular/router';
+import {provideRouter} from '@angular/router';
+import {AppRoutes} from './appMenu.component';
 import {HTTP_PROVIDERS} from '@angular/http';
 import {HemiService} from './service/hemiService.service';
 
-bootstrap(AppComponent, [ROUTER_DIRECTIVES, HTTP_PROVIDERS, HemiService]);
+bootstrap(AppComponent, [provideRouter(AppRoutes), HTTP_PROVIDERS, HemiService]);

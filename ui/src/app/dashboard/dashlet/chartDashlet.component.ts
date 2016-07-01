@@ -7,7 +7,12 @@ import {Http} from '@angular/http';
 
 @Component({
     selector: 'chart-dashlet',
-    template: `<div class="chart">Loading chart ...</div>`
+    template: `<div class="chart">Loading chart ...</div>`,
+    styles : [`
+    .chart {
+        height: 100%;
+    }
+    `]
 })
 export class ChartDashlet extends AbstractChartDashlet<SensorDataModel[]> {
 

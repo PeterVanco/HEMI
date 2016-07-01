@@ -1,5 +1,5 @@
 <div class="forecast-wrapper">
-    <div *ngFor="let day of forecast" attr.style="width: {{100 / forecast.length}}%" class="forecast-day">
+    <div *ngFor="let day of forecast" [style]="sanitizeWidth(forecast.length)" class="forecast-day">
         <div class="forecast-day-name">{{resolveForecastDay(day?.dt)}}</div>
         <i class="owf owf-{{day?.weather[0].id}} owf-lg owf-5x"></i>
         <div class="forecast-temp">{{day?.temp.day | number:format | temp}}</div>

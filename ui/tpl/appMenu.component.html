@@ -4,14 +4,21 @@
 
     <li routerLinkActive="active">
         <a [routerLink]="['/dashboard']">
-            <i class="fa fa-dashboard"></i>
+            <i class="fa fa-dashboard text-green"></i>
             <span>Prehľad</span>
         </a>
     </li>
 
     <li routerLinkActive="active">
+        <a [routerLink]="['/security']">
+            <i class="fa fa-lock text-red"></i>
+            <span>Zabezpečenie</span>
+        </a>
+    </li>
+
+    <li routerLinkActive="active">
         <a [routerLink]="['/teplota']">
-            <i class="fa fa-dashboard"></i>
+            <i class="fa fa-line-chart text-yellow"></i>
             <span>Teplota</span>
             <menu-info-dashlet [dashletId]="'indoor'" [dashletType]="sensorType.TEMP" [dashletIconColor]="'bg-green'"></menu-info-dashlet>
             <menu-info-dashlet [dashletId]="'outdoor'" [dashletType]="sensorType.TEMP" [dashletIconColor]="'bg-red'"></menu-info-dashlet>
@@ -20,7 +27,7 @@
 
     <li routerLinkActive="active">
         <a [routerLink]="['/vlhkost']">
-            <i class="fa fa-tint text-blue"></i>
+            <i class="fa fa-tint text-aqua"></i>
             <span>Vlhkosť</span>
             <span class="label label-primary pull-right">17</span>
         </a>
@@ -36,7 +43,7 @@
 
     <li routerLinkActive="active">
         <a [routerLink]="['/radar']">
-            <i class="fa fa-cloud text-green"></i>
+            <i class="fa fa-cloud text-purple"></i>
             <span>Radar</span>
         </a>
     </li>
@@ -45,7 +52,7 @@
 
     <li routerLinkActive="active">
         <a [routerLink]="['/kamery']">
-            <i class="fa fa-dashboard"></i>
+            <i class="fa fa-dashboard text-green"></i>
             <span>Prehľad</span>
         </a>
     </li>

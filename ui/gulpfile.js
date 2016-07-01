@@ -13,7 +13,6 @@ var using = require('gulp-using');
 var pump = require('pump');
 
 // Paths
-
 var src_path = Array();
 var src_dir = 'src'
 var src = type => src_dir + src_path[type];

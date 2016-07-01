@@ -12,7 +12,7 @@ import {CameraSnapshotCarouselDashlet} from './dashlet/cameraSnapshotCarouselDas
 
 @Component({
     selector: 'main-dashboard',
-    templateUrl: '../tpl/dashboard/mainDashboard.component.html',
+    templateUrl: '/tpl/dashboard/mainDashboard.component.html',
     directives: [ChartDashlet, InfoDashlet, CameraDashlet, ChartDashletRangeSelector, CarouselItemSelector, WeatherForecastDashlet, IFrameDashlet, CameraSnapshotCarouselDashlet]
 })
 export class MainDashboard extends AbstractDashboard implements AfterViewInit {

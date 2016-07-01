@@ -9,7 +9,7 @@ declare var ResizeSensor: any;
 
 @Component({
     selector: 'storage-info-dashlet',
-    templateUrl: '../../tpl/dashboard/dashlet/storageInfoDashlet.component.html',
+    templateUrl: '/tpl/dashboard/dashlet/storageInfoDashlet.component.html',
 	styles: [`
 	.box-body {
 		width: 100%;

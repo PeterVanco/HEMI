@@ -6,7 +6,7 @@ import {AbstractDashlet} from './abstractDashlet.component';
 
 @Component({
     selector: 'camera-snapshot-carousel-dashlet',
-    templateUrl: '../../tpl/dashboard/dashlet/cameraSnapshotCarouselDashlet.component.html'
+    templateUrl: '/tpl/dashboard/dashlet/cameraSnapshotCarouselDashlet.component.html'
 })
 export class CameraSnapshotCarouselDashlet extends AbstractDashlet<Camera[]> {
 

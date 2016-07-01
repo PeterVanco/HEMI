@@ -6,7 +6,7 @@ import {AbstractDashlet} from './abstractDashlet.component';
 
 @Component({
     selector: 'camera-dashlet',
-    templateUrl: '../../tpl/dashboard/dashlet/cameraDashlet.component.html',
+    templateUrl: '/tpl/dashboard/dashlet/cameraDashlet.component.html',
 	styles: [`
 	img {
 		width: 100%;	

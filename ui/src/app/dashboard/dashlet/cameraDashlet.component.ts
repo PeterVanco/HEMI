@@ -1,8 +1,9 @@
-import {Component, Input, OnInit, OnDestroy} from '@angular/core';
+import {Component, Input, OnInit, OnDestroy, ChangeDetectorRef} from '@angular/core';
 import {Observable, Subscription} from 'rxjs/Rx';
 import {HemiService} from '../../service/hemiService.service';
 import {DataModel, Camera, CameraSnapshot} from '../../service/data.model';
 import {AbstractDashlet} from './abstractDashlet.component';
+import {Subject, BehaviorSubject} from 'rxjs/Rx'
 
 @Component({
     selector: 'camera-dashlet',
@@ -27,11 +28,11 @@ export class CameraDashlet extends AbstractDashlet<Camera> implements OnInit, On
 	private autorefresh = true;
 	private nonAvailableTimelineDate: Date;
 
-	constructor(
-		protected _hemiService: HemiService) {
+	constructor(protected _hemiService: HemiService,
+		private _changeDetector: ChangeDetectorRef) {
 		super(_hemiService);
 	}
-	
+
 	getCameraRoute() {
 		return this._cameraRoute;
 	}
@@ -44,6 +45,7 @@ export class CameraDashlet extends AbstractDashlet<Camera> implements OnInit, On
 		} else {
 			this.nonAvailableTimelineDate = new Date(this.snapshot.timestamp);
 		}
+		this._changeDetector.detectChanges();
 	}
 
 	extractData(model: DataModel) {

@@ -4,8 +4,7 @@ import {CameraDashlet} from './dashlet/cameraDashlet.component';
 import {DataModel, CameraSnapshot, SensorTypeEnum} from '../service/data.model';
 import {AbstractDashboard} from './abstractDashboard.component';
 import {AsyncPipe} from '@angular/common';
-import {Subject} from 'rxjs/subject'
-import {BehaviorSubject} from 'rxjs/Rx'
+import {Subject, BehaviorSubject} from 'rxjs/Rx'
 import {TimelineCameraSnapshot} from './dashlet/cameraTimelineDashlet.component'
 
 @Component({
@@ -16,7 +15,7 @@ export abstract class AbstractCameraDashboard extends AbstractDashboard implemen
 	@ViewChildren(CameraDashlet)
 	cameras: QueryList<CameraDashlet>;
 
-	cameraRoutes: Subject<string[]> = new BehaviorSubject([]);
+	protected cameraRoutes: Subject<string[]> = new BehaviorSubject([]);
 
 	ngAfterViewInit() {
 		super.ngAfterViewInit();
@@ -24,7 +23,7 @@ export abstract class AbstractCameraDashboard extends AbstractDashboard implemen
 	}
 
 	onTimelineChanged(snapshot: TimelineCameraSnapshot) {
-		if (snapshot) {
+		if (snapshot && this.cameras) {
 			console.warn(snapshot);
 			this.cameras
 				// .filter(camera => snapshot.snapshots.some(snap =>

@@ -1,9 +1,9 @@
-import {Component, ElementRef, Input, AfterViewInit} from 'angular2/core';
+import {Component, ElementRef, Input, AfterViewInit} from '@angular/core';
 import {HemiService} from '../../service/hemiService.service';
 import {DataModel, SensorDataModel, SensorTypeEnum} from '../../service/data.model';
 import {AbstractDashlet} from './abstractDashlet.component';
 import {Observable} from 'rxjs/Rx';
-import {Http} from 'angular2/http';
+import {Http} from '@angular/http';
 
 export abstract class AbstractChartDashlet<T> extends AbstractDashlet<T> implements AfterViewInit {
 

@@ -1,9 +1,9 @@
-import {Component, ElementRef, Input, OnInit, OnDestroy, AfterViewInit, NgZone} from 'angular2/core';
+import {Component, ElementRef, Input, OnInit, OnDestroy, AfterViewInit, NgZone} from '@angular/core';
 import {HemiService} from '../../service/hemiService.service';
 import {DataModel, StorageInfo} from '../../service/data.model';
 import {AbstractDashboard} from '../abstractDashboard.component';
 import {AbstractChartDashlet} from './abstractChartDashlet.component';
-import {Http} from 'angular2/http';
+import {Http} from '@angular/http';
 
 declare var ResizeSensor: any;
 

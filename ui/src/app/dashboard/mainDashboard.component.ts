@@ -1,5 +1,5 @@
-import {Component, ViewChild, AfterViewInit, OnInit} from 'angular2/core';
-import {Http} from 'angular2/http';
+import {Component, ViewChild, AfterViewInit, OnInit} from '@angular/core';
+import {Http} from '@angular/http';
 import {AbstractDashboard} from './abstractDashboard.component';
 import {InfoDashlet} from './dashlet/infoDashlet.component';
 import {CameraDashlet} from './dashlet/cameraDashlet.component';

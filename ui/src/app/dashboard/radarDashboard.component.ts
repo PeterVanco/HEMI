@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, AfterViewInit} from 'angular2/core';
+import {Component, OnInit, OnDestroy, AfterViewInit} from '@angular/core';
 import {AbstractDashboard} from './abstractDashboard.component';
 import {IFrameDashlet} from './dashlet/iframeDashlet.component'
 

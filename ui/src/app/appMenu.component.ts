@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from 'angular2/core';
-import {Router, ROUTER_DIRECTIVES} from 'angular2/router';
+import {Component, Input, OnInit} from '@angular/core';
+import {Router, ROUTER_DIRECTIVES} from '@angular/router';
 import {Subscription} from 'rxjs/Rx';
 import {MenuInfoDashlet} from './dashboard/dashlet/menuInfoDashlet.component'
 import {SensorTypeEnum, Camera} from './service/data.model';

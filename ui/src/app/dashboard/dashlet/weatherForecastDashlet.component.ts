@@ -1,9 +1,9 @@
-import {Component, ElementRef, Input, OnInit, OnDestroy, AfterViewInit} from 'angular2/core';
+import {Component, ElementRef, Input, OnInit, OnDestroy, AfterViewInit} from '@angular/core';
 import {HemiService} from '../../service/hemiService.service';
 import {WeatherDataModel} from '../../service/data.model';
 import {TempPipe} from '../../util/temp.pipe';
 import {Observable} from 'rxjs/Rx';
-import {Http} from 'angular2/http';
+import {Http} from '@angular/http';
 
 @Component({
     selector: 'weather-forecast-dashlet',

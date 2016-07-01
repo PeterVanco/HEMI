@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, OnDestroy, ElementRef} from 'angular2/core';
+import {Component, Input, OnInit, OnDestroy, ElementRef} from '@angular/core';
 import {Observable, Subscription} from 'rxjs/Rx';
 import {HemiService} from '../../service/hemiService.service';
 import {DataModel, Camera, CameraSnapshot} from '../../service/data.model';

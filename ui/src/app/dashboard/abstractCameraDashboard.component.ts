@@ -1,11 +1,11 @@
-import {Component, Input, AfterViewInit, ViewChildren, QueryList} from 'angular2/core';
+import {Component, Input, AfterViewInit, ViewChildren, QueryList} from '@angular/core';
 import {Subscription} from 'rxjs/Rx';
 import {CameraDashlet} from './dashlet/cameraDashlet.component';
 import {DataModel, CameraSnapshot, SensorTypeEnum} from '../service/data.model';
 import {AbstractDashboard} from './abstractDashboard.component';
-import {AsyncPipe} from 'angular2/common';
+import {AsyncPipe} from '@angular/common';
 import {Subject} from 'rxjs/subject'
-import {BehaviorSubject} from 'rxjs/subject/BehaviorSubject'
+import {BehaviorSubject} from 'rxjs/Rx'
 import {TimelineCameraSnapshot} from './dashlet/cameraTimelineDashlet.component'
 
 @Component({

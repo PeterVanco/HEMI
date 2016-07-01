@@ -1,5 +1,5 @@
-import {Component, ViewChild, AfterViewInit} from 'angular2/core';
-import {RouteParams, Router} from 'angular2/router';
+import {Component, ViewChild, AfterViewInit} from '@angular/core';
+import {RouteParams, Router} from '@angular/router';
 import {AbstractCameraDashboard} from './AbstractCameraDashboard.component';
 import {CameraDashlet} from './dashlet/cameraDashlet.component';
 import {StorageInfoDashlet} from './dashlet/storageInfoDashlet.component';

@@ -1,9 +1,9 @@
-import {Component, ElementRef, Input, AfterViewInit} from 'angular2/core';
+import {Component, ElementRef, Input, AfterViewInit} from '@angular/core';
 import {HemiService} from '../../service/hemiService.service';
 import {DataModel, SensorDataModel, SensorTypeEnum} from '../../service/data.model';
 import {AbstractChartDashlet} from './abstractChartDashlet.component';
 import {Observable} from 'rxjs/Rx';
-import {Http} from 'angular2/http';
+import {Http} from '@angular/http';
 
 @Component({
     selector: 'chart-dashlet',

@@ -1,4 +1,4 @@
-import {Component, Input, AfterViewInit} from 'angular2/core';
+import {Component, Input, AfterViewInit} from '@angular/core';
 import {Subscription} from 'rxjs/Rx';
 import {DataModel, SensorTypeEnum} from '../service/data.model';
 

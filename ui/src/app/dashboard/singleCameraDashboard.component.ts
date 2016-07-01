@@ -1,5 +1,5 @@
-import {Component, OnInit, OnDestroy, AfterViewInit, QueryList} from 'angular2/core';
-import {RouteParams, Router} from 'angular2/router';
+import {Component, OnInit, OnDestroy, AfterViewInit, QueryList} from '@angular/core';
+import {RouteParams, Router} from '@angular/router';
 import {CameraDashlet} from './dashlet/cameraDashlet.component';
 import {CameraTimelineDashlet} from './dashlet/cameraTimelineDashlet.component';
 import {Camera, CameraSnapshot} from '../service/data.model';

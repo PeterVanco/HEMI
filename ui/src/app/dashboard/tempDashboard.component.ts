@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {InfoDashlet} from './dashlet/infoDashlet.component';
 import {Observable} from 'rxjs/Rx';
 

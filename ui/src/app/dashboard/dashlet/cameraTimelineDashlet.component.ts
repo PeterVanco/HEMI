@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Input, Output, OnInit, OnDestroy, AfterViewInit} from 'angular2/core';
+import {Component, ElementRef, EventEmitter, Input, Output, OnInit, OnDestroy, AfterViewInit} from '@angular/core';
 import {Observable, Subscription} from 'rxjs/Rx';
 import {HemiService} from '../../service/hemiService.service';
 import {DataModel, Camera, CameraSnapshot} from '../../service/data.model';
@@ -43,7 +43,7 @@ export interface TimelineCameraSnapshot {
 export class CameraTimelineDashlet extends AbstractDashlet<Camera[]> implements AfterViewInit {
 
 	@Input() cameraRoutes: string[];
-	@Output() timelineChanged: EventEmitter<TimelineCameraSnapshot> = new EventEmitter();
+	@Output() timelineChanged: EventEmitter<TimelineCameraSnapshot> = new EventEmitter<TimelineCameraSnapshot>();
 
 	private cameras: Camera[];
 	private resizeHandler: number;

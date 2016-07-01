@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, OnDestroy, NgZone} from 'angular2/core';
+import {Component, Input, OnInit, OnDestroy, NgZone} from '@angular/core';
 import {HemiService} from '../../service/hemiService.service';
 import {DataModel, SensorDataModel, SensorTypeEnum} from '../../service/data.model';
 import {AbstractDashlet} from './abstractDashlet.component';

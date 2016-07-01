@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, OnDestroy, NgZone} from 'angular2/core';
+import {Component, Input, OnInit, OnDestroy, NgZone} from '@angular/core';
 import {Subscription} from 'rxjs/Rx';
 import {HemiService} from '../../service/hemiService.service';
 import {DataModel, SystemStatusEnum} from '../../service/data.model';

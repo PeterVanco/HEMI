@@ -3,7 +3,7 @@ import {Observable} from 'rxjs/Rx';
 
 @Component({
     selector: 'temp-dashboard',
-    templateUrl: '/tpl/dashboard/tempDashboard.component.html',
+    templateUrl: '/src/tpl/dashboard/tempDashboard.component.html',
     directives: []
 })
 export class TempDashboard {

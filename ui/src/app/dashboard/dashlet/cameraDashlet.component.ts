@@ -7,7 +7,7 @@ import {Subject, BehaviorSubject} from 'rxjs/Rx'
 
 @Component({
     selector: 'camera-dashlet',
-    templateUrl: '/tpl/dashboard/dashlet/cameraDashlet.component.html',
+    templateUrl: '/src/tpl/dashboard/dashlet/cameraDashlet.component.html',
 	styles: [`
 	img {
 		width: 100%;	

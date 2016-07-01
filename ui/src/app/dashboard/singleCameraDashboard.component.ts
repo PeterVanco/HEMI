@@ -8,7 +8,7 @@ import {AbstractCameraDashboard} from './AbstractCameraDashboard.component';
 
 @Component({
     selector: 'camera-dashboard',
-    templateUrl: '/tpl/dashboard/singleCameraDashboard.component.html',
+    templateUrl: '/src/tpl/dashboard/singleCameraDashboard.component.html',
     directives: [CameraDashlet, CameraTimelineDashlet],
 })
 export class SingleCameraDashboard extends AbstractCameraDashboard implements OnInit, OnDestroy {

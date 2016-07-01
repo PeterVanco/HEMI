@@ -15,7 +15,7 @@ import {SingleCameraDashboard} from './dashboard/singleCameraDashboard.component
 
 @Component({
     selector: 'app',
-    templateUrl: '/tpl/app.component.html',
+    templateUrl: '/src/tpl/app.component.html',
     directives: [CurrentTime, AppMenu, SystemStatusDashlet, ROUTER_DIRECTIVES],
     precompile: [MainDashboard, TempDashboard, HumidityDashboard, SunshineDashboard, SecurityDashboard, RadarDashboard, CameraDashboard, SingleCameraDashboard]
 })

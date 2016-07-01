@@ -8,7 +8,7 @@ import {DomSanitizationService, SafeResourceUrl} from '@angular/platform-browser
 
 @Component({
     selector: 'weather-forecast-dashlet',
-    templateUrl: '/tpl/dashboard/dashlet/weatherForecastDashlet.component.html',
+    templateUrl: '/src/tpl/dashboard/dashlet/weatherForecastDashlet.component.html',
     styleUrls: ['../../dist/css/dashboard/dashlet/weatherForecastDashlet.css'],
     pipes: [TempPipe]
 })

@@ -22,7 +22,7 @@ export interface TimelineCameraSnapshot {
 		styles: "timeCube"
 	},
     selector: 'camera-timeline-dashlet',
-    templateUrl: '/tpl/dashboard/dashlet/cameraTimelineDashlet.component.html',
+    templateUrl: '/src/tpl/dashboard/dashlet/cameraTimelineDashlet.component.html',
 	styles: [`
 	.timeCube {
 		margin: 0px;

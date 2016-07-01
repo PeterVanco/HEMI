@@ -7,7 +7,7 @@ import {HemiService} from './service/hemiService.service';
 
 @Component({
     selector: 'app-menu',
-    templateUrl: './tpl/appMenu.component.html',
+    templateUrl: './src/tpl/appMenu.component.html',
     directives: [MenuInfoDashlet, ROUTER_DIRECTIVES]
 })
 export class AppMenu implements OnInit {

@@ -7,7 +7,7 @@ import {HemiService} from '../service/hemiService.service';
 
 @Component({
     selector: 'camera-dashboard',
-    templateUrl: '/tpl/dashboard/cameraDashboard.component.html',
+    templateUrl: '/src/tpl/dashboard/cameraDashboard.component.html',
     directives: [CameraDashlet, StorageInfoDashlet, CameraTimelineDashlet],
 })
 export class CameraDashboard extends AbstractCameraDashboard {

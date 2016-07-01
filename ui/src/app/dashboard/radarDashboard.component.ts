@@ -4,7 +4,7 @@ import {IFrameDashlet} from './dashlet/iframeDashlet.component'
 
 @Component({
     selector: 'radar-dashboard',
-    templateUrl: '/tpl/dashboard/radarDashboard.component.html',
+    templateUrl: '/src/tpl/dashboard/radarDashboard.component.html',
 	directives: [IFrameDashlet]
 })
 export class RadarDashboard extends AbstractDashboard implements AfterViewInit {

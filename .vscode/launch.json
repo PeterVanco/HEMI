@@ -1,0 +1,23 @@
+{
+    "version": "0.1.0",
+    "configurations": [
+        {
+            "name": "Attach localhost with sourcemaps",
+            "type": "chrome",
+            "request": "attach",
+            "port": 9222,
+            "url": "http://localhost:3000/",
+            "webRoot": "${workspaceRoot}/ui/",
+            "sourceMaps": true
+        },
+        {
+            "name": "Launch localhost with sourcemaps",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:3000/",
+            "userDataDir": "${workspaceRoot}/.vscode/chrome",
+            "webRoot": "${workspaceRoot}/ui/",
+            "sourceMaps": true
+        }
+    ]
+}

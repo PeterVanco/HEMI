@@ -27,4 +27,4 @@ node_modules
 dist
 
 # Chrome debugging profile
-.vscode/chrome
+.vscode/chrome/**/

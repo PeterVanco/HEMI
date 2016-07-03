@@ -26,5 +26,3 @@ node_modules
 # Compiled resources
 dist
 
-# Chrome debugging profile
-.vscode/chrome/**/

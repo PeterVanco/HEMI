@@ -25,34 +25,16 @@ export class TempDashboard extends AbstractDashboard implements AfterViewInit {
 
     public equalizeChartHeights() {
 
-        let content: any = $(".content");
-        let contentWrapper: any = $(".content-wrapper");
-
-        let equalize = () => {
-
+        super.initSlimScroll(contentWrapper => {
             let thisDashboard = this;
-
-            var neg = $('.main-header').outerHeight() + $('.main-footer').outerHeight();
-            var window_height = $(window).height();
-
-            //Destroy if it exists
-            content.slimScroll({
-                destroy: true
-            }).height("auto");
-            //Add slimscroll
-            content.slimScroll({
-                height: (window_height - neg) + 'px'
-            });
-
             let contentHeight = contentWrapper.height();
             contentWrapper.find(".box").each(function (index) {
                 let headerHeight = $(this).find(".box-header").height();
                 $(this).find(".box-body").height(contentHeight / thisDashboard.charts.length - (75 + headerHeight));
             });
             this.charts.forEach(chart => chart.getPlot() && chart.getPlot().reflow());
-        };
-        equalize();
-        new ResizeSensor(contentWrapper, equalize);
+        });
+
     }
 
 }

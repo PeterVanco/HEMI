@@ -18,6 +18,7 @@ import {Subject, BehaviorSubject} from 'rxjs/Rx'
 export class SecurityDashlet extends AbstractDashlet<DataModel> implements OnInit {
 
 	private canvas: HTMLCanvasElement;
+	private data: DataModel;
 
 	constructor(protected _hemiService: HemiService,
 		protected element: ElementRef) {
@@ -29,7 +30,8 @@ export class SecurityDashlet extends AbstractDashlet<DataModel> implements OnIni
 	}
 
 	handleData(data: DataModel) {
-
+		this.data = data;
+		this.redraw();
 	}
 
 	ngOnInit() {
@@ -50,7 +52,9 @@ export class SecurityDashlet extends AbstractDashlet<DataModel> implements OnIni
 
         // ctx.scale(0.5, 0.5);
 
-        this.drawLine(ctx, width * .1, height * .1, width * .9, height * .1, 'ff0000', 2);
+		if (this.data.sensors[0].latestValue > 10) {
+			this.drawLine(ctx, width * .1, height * .1, width * .9, height * .1, 'ff0000', 2);
+		}
         this.drawLine(ctx, width * .9, height * .1, width * .9, height * .9, '00ff00', 2);
 
     }
